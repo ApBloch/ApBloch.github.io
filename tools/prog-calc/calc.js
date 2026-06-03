@@ -351,6 +351,7 @@ function isFsActive() {
 }
 
 function updateFsBtn() {
+  if (!fsBtn) return;
   const active = isFsActive();
   fsBtn.textContent = active ? '⊡' : '⛶';
   fsBtn.title = active ? 'Exit fullscreen' : 'Enter fullscreen';
@@ -382,7 +383,7 @@ function onFsChange() {
   updateFsBtn();
 }
 
-fsBtn.addEventListener('click', toggleFullscreen);
+if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
 document.addEventListener('fullscreenchange', onFsChange);
 document.addEventListener('webkitfullscreenchange', onFsChange);
 
