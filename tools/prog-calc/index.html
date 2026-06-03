@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programmer Calculator — AP Bloch</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="calc.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="../../" style="color:inherit;text-decoration:none">Tools</a></h1>
+    <nav>
+      <a href="./" class="active">Programmer Calculator</a>
+    </nav>
+  </header>
+
+  <main class="calc-main">
+    <div class="calc-container">
+
+      <!-- Base display -->
+      <div class="bases">
+        <div class="base-row" id="row-hex">
+          <span class="base-label">HEX</span>
+          <input class="base-input" id="inp-hex" spellcheck="false"
+                 placeholder="0" maxlength="18" />
+        </div>
+        <div class="base-row" id="row-dec">
+          <span class="base-label">DEC</span>
+          <input class="base-input" id="inp-dec" spellcheck="false"
+                 placeholder="0" maxlength="20" />
+        </div>
+        <div class="base-row" id="row-oct">
+          <span class="base-label">OCT</span>
+          <input class="base-input" id="inp-oct" spellcheck="false"
+                 placeholder="0" maxlength="22" />
+        </div>
+        <div class="base-row" id="row-bin">
+          <span class="base-label">BIN</span>
+          <input class="base-input" id="inp-bin" spellcheck="false"
+                 placeholder="0" maxlength="68" />
+        </div>
+      </div>
+
+      <!-- Bit width selector -->
+      <div class="width-row">
+        <span class="section-label">Width</span>
+        <div class="btn-group" id="width-group">
+          <button data-bits="8">8</button>
+          <button data-bits="16">16</button>
+          <button data-bits="32" class="selected">32</button>
+          <button data-bits="64">64</button>
+        </div>
+        <label class="sign-toggle">
+          <input type="checkbox" id="signed-chk" checked /> signed
+        </label>
+      </div>
+
+      <!-- Bit grid -->
+      <div class="bit-section">
+        <span class="section-label">Bits</span>
+        <div class="bit-grid" id="bit-grid"></div>
+      </div>
+
+      <!-- Operations -->
+      <div class="ops-section">
+        <span class="section-label">Operations</span>
+        <div class="ops-grid">
+          <button class="op-btn" data-op="NOT">NOT</button>
+          <button class="op-btn" data-op="NEG">NEG</button>
+          <button class="op-btn" data-op="SHL1">SHL 1</button>
+          <button class="op-btn" data-op="SHR1">SHR 1</button>
+          <button class="op-btn" data-op="ROL1">ROL 1</button>
+          <button class="op-btn" data-op="ROR1">ROR 1</button>
+          <button class="op-btn" data-op="BYTESWAP">Byte Swap</button>
+          <button class="op-btn" data-op="CLZ">Count Leading 0s</button>
+          <button class="op-btn" data-op="POPCOUNT">Popcount</button>
+        </div>
+      </div>
+
+      <!-- Status bar -->
+      <div class="status" id="status"></div>
+    </div>
+  </main>
+
+  <script src="calc.js"></script>
+</body>
+</html>
