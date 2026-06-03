@@ -1,210 +1,336 @@
-// Programmer calculator — uses BigInt throughout to handle 64-bit cleanly.
+'use strict';
 
-const inputs = {
-  hex: document.getElementById('inp-hex'),
-  dec: document.getElementById('inp-dec'),
-  oct: document.getElementById('inp-oct'),
-  bin: document.getElementById('inp-bin'),
-};
-const bitGrid   = document.getElementById('bit-grid');
-const widthGroup = document.getElementById('width-group');
-const signedChk  = document.getElementById('signed-chk');
-const statusEl   = document.getElementById('status');
+// ---- state ----
+let mode       = 'dec';   // 'dec' | 'hex' | 'oct' | 'bin'
+let bits       = 32;
+let accumulator = 0n;
+let pendingOp  = null;    // '+' | '−' | '×' | '÷' | 'AND' | 'OR' | 'XOR' | 'LSH' | 'RSH'
+let entry      = '0';
+let justEvaled = false;
+let parenDepth = 0;       // simple paren tracking (display only for now)
 
-let bits   = 32;
-let signed = true;
-let value  = 0n; // always stored as unsigned BigInt within the current width
+// ---- DOM refs ----
+const displayMain = document.getElementById('display-main');
+const displayExpr = document.getElementById('display-expr');
+const displaySec  = document.getElementById('display-secondary');
+const bitGrid     = document.getElementById('bit-grid');
+const bitLabels   = document.getElementById('bit-labels');
+const modeGroup   = document.getElementById('mode-group');
+const widthGroup  = document.getElementById('width-group');
 
-// ---- masks ----
-
-function mask() {
-  return (1n << BigInt(bits)) - 1n;
-}
-
-function signedValue(v) {
+// ---- masks & helpers ----
+function mask()     { return (1n << BigInt(bits)) - 1n; }
+function signedVal(v) {
   const msb = 1n << BigInt(bits - 1);
   return (v & msb) ? v - (1n << BigInt(bits)) : v;
 }
 
-// ---- rendering ----
-
-function updateDisplays(skip) {
-  const v = value & mask();
-  const sv = signedValue(v);
-  const displayVal = signed ? sv : v;
-
-  if (skip !== 'hex') inputs.hex.value = v.toString(16).toUpperCase();
-  if (skip !== 'dec') inputs.dec.value = displayVal.toString(10);
-  if (skip !== 'oct') inputs.oct.value = v.toString(8);
-  if (skip !== 'bin') {
-    const raw = v.toString(2);
-    inputs.bin.value = raw.padStart(bits, '0');
-  }
-
-  renderBits(v);
-  updateStatus(v, sv);
+function clampToWidth(v) {
+  // keep unsigned representation within width
+  const m = mask();
+  return ((v % (m + 1n)) + m + 1n) % (m + 1n);
 }
 
-function renderBits(v) {
+function parseEntry() {
+  const s = entry.trim();
+  if (!s || s === '-') return 0n;
+  try {
+    switch (mode) {
+      case 'hex': {
+        const neg = s.startsWith('-');
+        const hex = neg ? s.slice(1) : s;
+        const v = BigInt('0x' + hex);
+        return clampToWidth(neg ? -v : v);
+      }
+      case 'oct': return clampToWidth(BigInt('0o' + s));
+      case 'bin': return clampToWidth(BigInt('0b' + s));
+      default: { // dec
+        const v = BigInt(s);
+        return clampToWidth(v);
+      }
+    }
+  } catch { return 0n; }
+}
+
+function formatValue(v, m) {
+  switch (m) {
+    case 'hex': return v.toString(16).toUpperCase();
+    case 'oct': return v.toString(8);
+    case 'bin': {
+      const raw = v.toString(2).padStart(bits, '0');
+      // group into nibbles
+      const groups = [];
+      for (let i = 0; i < raw.length; i += 4) groups.push(raw.slice(i, i + 4));
+      return groups.join(' ');
+    }
+    default: return signedVal(v).toString(10);
+  }
+}
+
+function currentValue() {
+  return parseEntry();
+}
+
+// ---- rendering ----
+function render() {
+  const v = currentValue();
+
+  // main display: show entry as-is while typing, formatted on eval
+  displayMain.textContent = entry === '0' ? '0' : entry;
+
+  // secondary: hex when not in hex mode; dec otherwise
+  if (mode !== 'hex') {
+    displaySec.textContent = '0x' + v.toString(16).toUpperCase().padStart(bits / 4, '0');
+  } else {
+    displaySec.textContent = signedVal(v).toString(10);
+  }
+
+  // expr line
+  if (pendingOp) {
+    displayExpr.textContent = formatValue(accumulator, mode) + ' ' + pendingOp;
+  } else {
+    displayExpr.textContent = '';
+  }
+
+  renderBitGrid(v);
+  updateKeypadState();
+  updateOpHighlight();
+}
+
+function renderBitGrid(v) {
   bitGrid.innerHTML = '';
+  bitLabels.innerHTML = '';
+
   for (let i = bits - 1; i >= 0; i--) {
     const cell = document.createElement('div');
     cell.className = 'bit-cell';
-    if (i !== bits - 1 && (i + 1) % 8 === 0) cell.classList.add('byte-start');
     const on = (v >> BigInt(i)) & 1n;
     if (on) cell.classList.add('on');
     cell.textContent = on ? '1' : '0';
     cell.title = `bit ${i}`;
-    cell.dataset.bit = i;
+
+    const posFromLeft = bits - 1 - i;
+    if (posFromLeft > 0 && posFromLeft % 8 === 0) cell.classList.add('byte-start');
+    else if (posFromLeft > 0 && posFromLeft % 4 === 0) cell.classList.add('nibble-start');
+
     cell.addEventListener('click', () => {
-      value ^= (1n << BigInt(i));
-      updateDisplays();
+      const cur = currentValue();
+      const toggled = cur ^ (1n << BigInt(i));
+      setEntryFromValue(toggled);
+      render();
     });
+
     bitGrid.appendChild(cell);
   }
+
+  // labels: one per nibble group showing the high bit index of that nibble
+  const labelWrap = document.createElement('div');
+  labelWrap.style.cssText = 'display:flex;justify-content:flex-end;gap:2px;width:100%;';
+  for (let i = bits - 1; i >= 0; i -= 4) {
+    const span = document.createElement('span');
+    span.style.cssText = `width:${i === bits-1 ? 20 : 20}px;text-align:center;font-size:10px;color:var(--muted);`;
+    if (i === bits - 1) span.style.marginLeft = '0';
+    // add byte-gap margin mirrors
+    const posFromLeft = bits - 1 - i;
+    if (posFromLeft > 0 && posFromLeft % 8 === 0) span.style.marginLeft = '10px';
+    else if (posFromLeft > 0) span.style.marginLeft = '5px';
+    span.textContent = i;
+    labelWrap.appendChild(span);
+  }
+  bitLabels.appendChild(labelWrap);
 }
 
-function updateStatus(v, sv) {
-  const pop = popcount(v);
-  statusEl.textContent = `popcount: ${pop}  |  0x${v.toString(16).toUpperCase().padStart(bits / 4, '0')}  |  ${signed ? sv : v}`;
-}
-
-// ---- input handlers ----
-
-function parseInput(raw, base) {
-  const s = raw.trim().replace(/[\s_]/g, '');
-  if (s === '' || s === '-') return null;
-  try {
-    const sign = s.startsWith('-') ? -1n : 1n;
-    const abs = s.startsWith('-') ? s.slice(1) : s;
-    if (abs === '') return null;
-    return sign * BigInt(base === 10 ? abs : `0x${base === 16 ? abs : base === 8 ? toHexFromBase(abs, 8) : toHexFromBase(abs, 2)}`);
-  } catch {
-    return null;
+function setEntryFromValue(v) {
+  const clamped = clampToWidth(v);
+  switch (mode) {
+    case 'hex': entry = clamped.toString(16).toUpperCase() || '0'; break;
+    case 'oct': entry = clamped.toString(8) || '0'; break;
+    case 'bin': entry = clamped.toString(2) || '0'; break;
+    default:    entry = signedVal(clamped).toString(10) || '0'; break;
   }
 }
 
-function toHexFromBase(s, base) {
-  return parseInt(s, base).toString(16);
-}
+// ---- digit enable/disable ----
+const digitMap = {
+  dec: new Set(['0','1','2','3','4','5','6','7','8','9']),
+  hex: new Set(['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']),
+  oct: new Set(['0','1','2','3','4','5','6','7']),
+  bin: new Set(['0','1']),
+};
 
-function parseHex(s) {
-  const clean = s.trim().replace(/[\s_]/g, '').replace(/^0x/i, '');
-  if (!clean || !/^[0-9a-fA-F]+$/.test(clean)) return null;
-  return BigInt('0x' + clean);
-}
-
-function parseOct(s) {
-  const clean = s.trim().replace(/[\s_]/g, '').replace(/^0o/i, '');
-  if (!clean || !/^[0-7]+$/.test(clean)) return null;
-  return BigInt('0o' + clean);
-}
-
-function parseBin(s) {
-  const clean = s.trim().replace(/[\s_]/g, '').replace(/^0b/i, '');
-  if (!clean || !/^[01]+$/.test(clean)) return null;
-  return BigInt('0b' + clean);
-}
-
-function parseDec(s) {
-  const clean = s.trim().replace(/[\s_]/g, '');
-  if (!clean || !/^-?[0-9]+$/.test(clean)) return null;
-  return BigInt(clean);
-}
-
-function applyUnsigned(v) {
-  if (v === null) return;
-  value = v & mask();
-  updateDisplays();
-}
-
-function applySigned(v) {
-  if (v === null) return;
-  // re-interpret as unsigned within width
-  const m = mask();
-  value = ((v % (m + 1n)) + m + 1n) % (m + 1n);
-  updateDisplays();
-}
-
-inputs.hex.addEventListener('input', () => applyUnsigned(parseHex(inputs.hex.value)));
-inputs.oct.addEventListener('input', () => applyUnsigned(parseOct(inputs.oct.value)));
-inputs.bin.addEventListener('input', () => applyUnsigned(parseBin(inputs.bin.value)));
-inputs.dec.addEventListener('input', () => {
-  const v = parseDec(inputs.dec.value);
-  if (v === null) return;
-  applySigned(v);
-  updateDisplays('dec');
-});
-
-Object.values(inputs).forEach(inp => {
-  const id = inp.id.replace('inp-', '');
-  inp.addEventListener('focus', () => document.getElementById('row-' + id).classList.add('editing'));
-  inp.addEventListener('blur',  () => document.getElementById('row-' + id).classList.remove('editing'));
-});
-
-// ---- width buttons ----
-
-widthGroup.querySelectorAll('button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    widthGroup.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    bits = parseInt(btn.dataset.bits);
-    value = value & mask();
-    updateDisplays();
+function updateKeypadState() {
+  const allowed = digitMap[mode];
+  document.querySelectorAll('.key.digit, .key.hex-only').forEach(btn => {
+    const k = btn.dataset.key;
+    btn.disabled = !allowed.has(k);
   });
-});
+}
 
-signedChk.addEventListener('change', () => {
-  signed = signedChk.checked;
-  updateDisplays();
-});
+function updateOpHighlight() {
+  document.querySelectorAll('.key.op, .op-btn').forEach(btn => {
+    const op = btn.dataset.key || btn.dataset.op;
+    btn.classList.toggle('active-op', op === pendingOp);
+    btn.classList.toggle('pending',   op === pendingOp);
+  });
+}
 
 // ---- operations ----
-
-function popcount(v) {
-  let n = 0n, x = v & mask();
-  while (x) { n += x & 1n; x >>= 1n; }
-  return Number(n);
+function applyBinary(op, a, b) {
+  const m = mask();
+  switch (op) {
+    case '+':   return clampToWidth(a + b);
+    case '−':   return clampToWidth(a - b);
+    case '×':   return clampToWidth(a * b);
+    case '÷':   return b === 0n ? a : clampToWidth(a / b);
+    case 'AND': return (a & b) & m;
+    case 'OR':  return (a | b) & m;
+    case 'XOR': return (a ^ b) & m;
+    case 'LSH': return (a << (b & BigInt(bits - 1))) & m;
+    case 'RSH': return (a >> (b & BigInt(bits - 1))) & m;
+    default: return b;
+  }
 }
 
-document.querySelectorAll('.op-btn').forEach(btn => {
+function applyUnary(op) {
+  const v = currentValue();
+  const m = mask();
+  const b = BigInt(bits);
+  let result;
+  switch (op) {
+    case 'NOT': result = (~v) & m; break;
+    case 'NEG': result = clampToWidth(-signedVal(v)); break;
+    default: return;
+  }
+  setEntryFromValue(result);
+  justEvaled = true;
+  render();
+}
+
+function pressOp(op) {
+  const v = currentValue();
+  if (pendingOp && !justEvaled) {
+    const result = applyBinary(pendingOp, accumulator, v);
+    accumulator = result;
+  } else {
+    accumulator = v;
+  }
+  pendingOp  = op;
+  justEvaled = true;
+  render();
+}
+
+function pressEquals() {
+  if (!pendingOp) return;
+  const v = currentValue();
+  const result = applyBinary(pendingOp, accumulator, v);
+  accumulator = result;
+  pendingOp   = null;
+  justEvaled  = true;
+  setEntryFromValue(result);
+  render();
+}
+
+function pressDigit(d) {
+  if (!digitMap[mode].has(d)) return;
+  if (justEvaled) { entry = d; justEvaled = false; }
+  else if (entry === '0') { entry = d; }
+  else { entry += d; }
+  render();
+}
+
+function pressBack() {
+  if (entry.length <= 1) { entry = '0'; }
+  else { entry = entry.slice(0, -1); }
+  render();
+}
+
+function pressCE() {
+  if (entry !== '0') { entry = '0'; }
+  else { accumulator = 0n; pendingOp = null; justEvaled = false; }
+  render();
+}
+
+function pressNeg() {
+  if (mode === 'dec') {
+    if (entry.startsWith('-')) entry = entry.slice(1);
+    else if (entry !== '0')    entry = '-' + entry;
+  } else {
+    const v = currentValue();
+    setEntryFromValue(clampToWidth(-signedVal(v)));
+    justEvaled = true;
+  }
+  render();
+}
+
+// ---- mode & width ----
+function setMode(m) {
+  const v = currentValue();
+  mode = m;
+  setEntryFromValue(v);
+  modeGroup.querySelectorAll('button').forEach(b => b.classList.toggle('selected', b.dataset.mode === m));
+  render();
+}
+
+function setWidth(w) {
+  bits = w;
+  const v = clampToWidth(currentValue());
+  setEntryFromValue(v);
+  accumulator = clampToWidth(accumulator);
+  widthGroup.querySelectorAll('button').forEach(b => b.classList.toggle('selected', parseInt(b.dataset.bits) === w));
+  render();
+}
+
+// ---- event wiring ----
+modeGroup.querySelectorAll('button').forEach(btn =>
+  btn.addEventListener('click', () => setMode(btn.dataset.mode))
+);
+
+widthGroup.querySelectorAll('button').forEach(btn =>
+  btn.addEventListener('click', () => setWidth(parseInt(btn.dataset.bits)))
+);
+
+document.querySelectorAll('.op-btn').forEach(btn =>
   btn.addEventListener('click', () => {
-    const m = mask();
-    const b = BigInt(bits);
-    switch (btn.dataset.op) {
-      case 'NOT':      value = (~value) & m; break;
-      case 'NEG':      value = ((-value) & m + m + 1n) % (m + 1n); break;
-      case 'SHL1':     value = (value << 1n) & m; break;
-      case 'SHR1':     value = (value >> 1n) & m; break;
-      case 'ROL1':     value = ((value << 1n) | (value >> (b - 1n))) & m; break;
-      case 'ROR1':     value = ((value >> 1n) | ((value & 1n) << (b - 1n))) & m; break;
-      case 'BYTESWAP': value = byteSwap(value); break;
-      case 'CLZ':      value = BigInt(clz(value)); break;
-      case 'POPCOUNT': value = BigInt(popcount(value)); break;
+    const op = btn.dataset.op;
+    if (op === 'NOT') applyUnary('NOT');
+    else pressOp(op);
+  })
+);
+
+document.querySelectorAll('.key').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.key;
+    if (!k) return;
+    if ('0123456789ABCDEF'.includes(k)) { pressDigit(k); return; }
+    switch (k) {
+      case '+': case '−': case '×': case '÷':
+      case 'AND': case 'OR': case 'XOR': case 'LSH': case 'RSH':
+        pressOp(k); break;
+      case '=':    pressEquals(); break;
+      case 'CE':   pressCE(); break;
+      case 'BACK': pressBack(); break;
+      case 'NEG':  pressNeg(); break;
     }
-    updateDisplays();
   });
 });
 
-function byteSwap(v) {
-  const bytes = bits / 8;
-  let result = 0n;
-  for (let i = 0; i < bytes; i++) {
-    result |= ((v >> BigInt(i * 8)) & 0xffn) << BigInt((bytes - 1 - i) * 8);
-  }
-  return result & mask();
-}
+// ---- keyboard ----
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const key = e.key;
 
-function clz(v) {
-  const m = mask();
-  let x = v & m;
-  if (x === 0n) return bits;
-  let count = 0;
-  const msb = 1n << BigInt(bits - 1);
-  while (!(x & msb)) { x <<= 1n; count++; }
-  return count;
-}
+  if (key === 'Enter' || key === '=') { e.preventDefault(); pressEquals(); return; }
+  if (key === 'Backspace') { e.preventDefault(); pressBack(); return; }
+  if (key === 'Escape' || key === 'Delete') { e.preventDefault(); pressCE(); return; }
+
+  const upper = key.toUpperCase();
+  if (digitMap[mode].has(upper)) { pressDigit(upper); return; }
+
+  if (key === '+') { pressOp('+'); return; }
+  if (key === '-') { pressOp('−'); return; }
+  if (key === '*') { pressOp('×'); return; }
+  if (key === '/') { e.preventDefault(); pressOp('÷'); return; }
+});
 
 // ---- init ----
-
-updateDisplays();
+render();

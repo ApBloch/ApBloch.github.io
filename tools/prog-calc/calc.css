@@ -1,127 +1,119 @@
-.calc-main { max-width: 800px; }
+.calc-main { padding: 24px; }
 
-.calc-container {
+.calc-wrap {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 10px;
+  width: 420px;
 }
 
-/* Base inputs */
-.bases { display: flex; flex-direction: column; gap: 2px; }
-
-.base-row {
+/* ---- top bar ---- */
+.top-bar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border);
 }
 
-.base-label {
-  width: 36px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-
-.base-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 20px;
-  text-align: right;
-  caret-color: var(--accent);
-}
-
-.base-input:focus { color: var(--accent-hover); }
-.base-input::placeholder { color: var(--border); }
-
-/* Active row highlight */
-.base-row.editing { background: rgba(88, 166, 255, 0.04); border-radius: 4px; }
-
-/* Width / signed row */
-.width-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.section-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  min-width: 60px;
-  flex-shrink: 0;
-}
-
-.btn-group {
-  display: flex;
-  gap: 4px;
-}
+.btn-group { display: flex; gap: 3px; }
 
 .btn-group button {
   background: var(--btn-bg);
   border: 1px solid var(--border);
   color: var(--muted);
   font-family: inherit;
-  font-size: 13px;
-  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.1s;
+  letter-spacing: 0.04em;
 }
 
 .btn-group button:hover { background: var(--btn-hover); color: var(--text); }
+
 .btn-group button.selected {
   background: var(--accent);
   border-color: var(--accent);
   color: #0d1117;
-  font-weight: 600;
 }
 
-.sign-toggle {
+/* ---- display ---- */
+.display-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px 10px;
+  min-height: 88px;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--muted);
-  cursor: pointer;
-  user-select: none;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
 }
 
-.sign-toggle input { cursor: pointer; accent-color: var(--accent); }
+.display-expr {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  min-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-/* Bit grid */
-.bit-section { display: flex; flex-direction: column; gap: 8px; }
+.display-main {
+  font-size: 36px;
+  font-weight: 300;
+  text-align: right;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.display-secondary {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  min-height: 16px;
+}
+
+/* ---- bit grid ---- */
+.bit-grid-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
 .bit-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 3px;
+  gap: 2px;
+  justify-content: flex-end;
 }
 
 .bit-cell {
-  width: 22px;
-  height: 28px;
+  width: 20px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--btn-bg);
   border: 1px solid var(--border);
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   user-select: none;
-  transition: all 0.08s;
-  position: relative;
+  transition: background 0.08s, border-color 0.08s;
 }
 
-.bit-cell:hover { border-color: var(--accent); color: var(--accent); }
+.bit-cell:hover { border-color: var(--accent); }
+
 .bit-cell.on {
   background: var(--accent);
   border-color: var(--accent);
@@ -129,36 +121,149 @@
   font-weight: 700;
 }
 
-/* Byte separators */
-.bit-cell.byte-start { margin-left: 8px; }
+/* nibble gap */
+.bit-cell.nibble-start { margin-left: 5px; }
+/* byte gap (wider) */
+.bit-cell.byte-start { margin-left: 10px; }
 
-/* Operations */
-.ops-section { display: flex; flex-direction: column; gap: 8px; }
-
-.ops-grid {
+.bit-labels {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  justify-content: flex-end;
+  font-size: 10px;
+  color: var(--muted);
+  gap: 2px;
+  padding-left: 2px;
+}
+
+.bit-label-group {
+  text-align: center;
+}
+
+/* ---- bitwise row ---- */
+.bitwise-row {
+  display: flex;
+  gap: 4px;
 }
 
 .op-btn {
+  flex: 1;
   background: var(--btn-bg);
   border: 1px solid var(--border);
   color: var(--text);
   font-family: inherit;
-  font-size: 13px;
-  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 0;
   border-radius: 4px;
   cursor: pointer;
+  letter-spacing: 0.04em;
   transition: all 0.1s;
 }
 
-.op-btn:hover { background: var(--btn-hover); border-color: var(--accent); }
-.op-btn:active { background: var(--btn-active); border-color: var(--btn-active); color: #0d1117; }
+.op-btn:hover { background: var(--btn-hover); border-color: var(--accent); color: var(--accent); }
+.op-btn.pending { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
 
-/* Status */
-.status {
-  font-size: 12px;
-  color: var(--muted);
-  min-height: 18px;
+/* ---- keypad ---- */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 4px;
 }
+
+/* rows 3-6 only have 4 cols — op column spans */
+.keypad .key { grid-column: span 1; }
+
+/* layout: rows 1-2 are 5-wide, rows 3-6 are 4-wide with op in col 5 */
+/* We'll handle this via nth-child ordering naturally with grid auto-placement
+   but rows 3-6 skip col 5 for the digit rows — use explicit placement */
+
+.key {
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.08s;
+  user-select: none;
+}
+
+.key:hover { background: var(--btn-hover); }
+.key:active { filter: brightness(1.3); }
+
+.key.fn { color: var(--muted); font-size: 13px; }
+.key.fn:hover { color: var(--text); }
+
+.key.op {
+  background: #1c2128;
+  border-color: #3d444d;
+  color: var(--accent);
+  font-size: 18px;
+}
+.key.op:hover { background: #21262d; border-color: var(--accent); }
+.key.op.active-op {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+}
+
+.key.eq {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+  font-size: 18px;
+  font-weight: 700;
+}
+.key.eq:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.key.hex-only:disabled,
+.key.digit:disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* rows 3-6: digits 7-0 go in cols 1-3, ops go in col 4, = in col 3 last row */
+/* Grid auto-placement handles rows 1-2 (5 items each).
+   Rows 3-6 need col 4 for the op keys — explicit placement below */
+
+/* Row 3: 7 8 9 ÷ */
+.key[data-key="7"] { grid-column: 1; grid-row: 3; }
+.key[data-key="8"] { grid-column: 2; grid-row: 3; }
+.key[data-key="9"] { grid-column: 3; grid-row: 3; }
+.key[data-key="÷"] { grid-column: 4; grid-row: 3; }
+
+/* Row 4: 4 5 6 × */
+.key[data-key="4"] { grid-column: 1; grid-row: 4; }
+.key[data-key="5"] { grid-column: 2; grid-row: 4; }
+.key[data-key="6"] { grid-column: 3; grid-row: 4; }
+.key[data-key="×"] { grid-column: 4; grid-row: 4; }
+
+/* Row 5: 1 2 3 − */
+.key[data-key="1"] { grid-column: 1; grid-row: 5; }
+.key[data-key="2"] { grid-column: 2; grid-row: 5; }
+.key[data-key="3"] { grid-column: 3; grid-row: 5; }
+.key[data-key="−"] { grid-column: 4; grid-row: 5; }
+
+/* Row 6: ± 0 = + */
+.key[data-key="NEG"] { grid-column: 1; grid-row: 6; }
+.key[data-key="0"]   { grid-column: 2; grid-row: 6; }
+.key[data-key="="]   { grid-column: 3; grid-row: 6; }
+.key[data-key="+"]   { grid-column: 4; grid-row: 6; }
+
+/* Row 1: A B C CE ⌫  — auto placed cols 1-5, row 1 */
+.key[data-key="A"]    { grid-column: 1; grid-row: 1; }
+.key[data-key="B"]    { grid-column: 2; grid-row: 1; }
+.key[data-key="C"]    { grid-column: 3; grid-row: 1; }
+.key[data-key="CE"]   { grid-column: 4; grid-row: 1; }
+.key[data-key="BACK"] { grid-column: 5; grid-row: 1; }
+
+/* Row 2: D E F ( ) */
+.key[data-key="D"] { grid-column: 1; grid-row: 2; }
+.key[data-key="E"] { grid-column: 2; grid-row: 2; }
+.key[data-key="F"] { grid-column: 3; grid-row: 2; }
+.key[data-key="("] { grid-column: 4; grid-row: 2; }
+.key[data-key=")"] { grid-column: 5; grid-row: 2; }

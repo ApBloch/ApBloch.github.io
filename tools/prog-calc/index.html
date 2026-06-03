@@ -16,70 +16,88 @@
   </header>
 
   <main class="calc-main">
-    <div class="calc-container">
+    <div class="calc-wrap">
 
-      <!-- Base display -->
-      <div class="bases">
-        <div class="base-row" id="row-hex">
-          <span class="base-label">HEX</span>
-          <input class="base-input" id="inp-hex" spellcheck="false"
-                 placeholder="0" maxlength="18" />
+      <!-- Top bar: mode + width -->
+      <div class="top-bar">
+        <div class="btn-group" id="mode-group">
+          <button data-mode="dec" class="selected">DEC</button>
+          <button data-mode="hex">HEX</button>
+          <button data-mode="oct">OCT</button>
+          <button data-mode="bin">BIN</button>
         </div>
-        <div class="base-row" id="row-dec">
-          <span class="base-label">DEC</span>
-          <input class="base-input" id="inp-dec" spellcheck="false"
-                 placeholder="0" maxlength="20" />
-        </div>
-        <div class="base-row" id="row-oct">
-          <span class="base-label">OCT</span>
-          <input class="base-input" id="inp-oct" spellcheck="false"
-                 placeholder="0" maxlength="22" />
-        </div>
-        <div class="base-row" id="row-bin">
-          <span class="base-label">BIN</span>
-          <input class="base-input" id="inp-bin" spellcheck="false"
-                 placeholder="0" maxlength="68" />
-        </div>
-      </div>
-
-      <!-- Bit width selector -->
-      <div class="width-row">
-        <span class="section-label">Width</span>
         <div class="btn-group" id="width-group">
           <button data-bits="8">8</button>
           <button data-bits="16">16</button>
           <button data-bits="32" class="selected">32</button>
           <button data-bits="64">64</button>
         </div>
-        <label class="sign-toggle">
-          <input type="checkbox" id="signed-chk" checked /> signed
-        </label>
+      </div>
+
+      <!-- Display -->
+      <div class="display-box">
+        <div class="display-expr" id="display-expr"></div>
+        <div class="display-main" id="display-main">0</div>
+        <div class="display-secondary" id="display-secondary"></div>
       </div>
 
       <!-- Bit grid -->
-      <div class="bit-section">
-        <span class="section-label">Bits</span>
+      <div class="bit-grid-wrap">
         <div class="bit-grid" id="bit-grid"></div>
+        <div class="bit-labels" id="bit-labels"></div>
       </div>
 
-      <!-- Operations -->
-      <div class="ops-section">
-        <span class="section-label">Operations</span>
-        <div class="ops-grid">
-          <button class="op-btn" data-op="NOT">NOT</button>
-          <button class="op-btn" data-op="NEG">NEG</button>
-          <button class="op-btn" data-op="SHL1">SHL 1</button>
-          <button class="op-btn" data-op="SHR1">SHR 1</button>
-          <button class="op-btn" data-op="ROL1">ROL 1</button>
-          <button class="op-btn" data-op="ROR1">ROR 1</button>
-          <button class="op-btn" data-op="BYTESWAP">Byte Swap</button>
-          <button class="op-btn" data-op="CLZ">Count Leading 0s</button>
-          <button class="op-btn" data-op="POPCOUNT">Popcount</button>
-        </div>
+      <!-- Bitwise ops row -->
+      <div class="bitwise-row">
+        <button class="op-btn" data-op="AND">AND</button>
+        <button class="op-btn" data-op="OR">OR</button>
+        <button class="op-btn" data-op="XOR">XOR</button>
+        <button class="op-btn" data-op="NOT">NOT</button>
+        <button class="op-btn" data-op="LSH">LSH</button>
+        <button class="op-btn" data-op="RSH">RSH</button>
       </div>
 
-      <!-- Status bar -->
-      <div class="status" id="status"></div>
+      <!-- Keypad -->
+      <div class="keypad">
+        <!-- Row 1 -->
+        <button class="key hex-only" data-key="A">A</button>
+        <button class="key hex-only" data-key="B">B</button>
+        <button class="key hex-only" data-key="C">C</button>
+        <button class="key fn" data-key="CE">CE</button>
+        <button class="key fn" data-key="BACK">⌫</button>
+
+        <!-- Row 2 -->
+        <button class="key hex-only" data-key="D">D</button>
+        <button class="key hex-only" data-key="E">E</button>
+        <button class="key hex-only" data-key="F">F</button>
+        <button class="key fn" data-key="(">(</button>
+        <button class="key fn" data-key=")">)</button>
+
+        <!-- Row 3 -->
+        <button class="key digit" data-key="7">7</button>
+        <button class="key digit" data-key="8">8</button>
+        <button class="key digit" data-key="9">9</button>
+        <button class="key op" data-key="÷">÷</button>
+
+        <!-- Row 4 -->
+        <button class="key digit" data-key="4">4</button>
+        <button class="key digit" data-key="5">5</button>
+        <button class="key digit" data-key="6">6</button>
+        <button class="key op" data-key="×">×</button>
+
+        <!-- Row 5 -->
+        <button class="key digit" data-key="1">1</button>
+        <button class="key digit" data-key="2">2</button>
+        <button class="key digit" data-key="3">3</button>
+        <button class="key op" data-key="−">−</button>
+
+        <!-- Row 6 -->
+        <button class="key fn" data-key="NEG">±</button>
+        <button class="key digit" data-key="0">0</button>
+        <button class="key eq" data-key="=">=</button>
+        <button class="key op" data-key="+">+</button>
+      </div>
+
     </div>
   </main>
 
