@@ -101,6 +101,12 @@ function renderBitGrid(v) {
   bitGrid.innerHTML = '';
   bitLabels.innerHTML = '';
 
+  // Max 32 bits per row; 64-bit uses two rows of 32.
+  const colCount = Math.min(bits, 32);
+  const cols = `repeat(${colCount}, 1fr)`;
+  bitGrid.style.gridTemplateColumns = cols;
+  bitLabels.style.gridTemplateColumns = cols;
+
   for (let i = bits - 1; i >= 0; i--) {
     const cell = document.createElement('div');
     cell.className = 'bit-cell';
@@ -109,9 +115,10 @@ function renderBitGrid(v) {
     cell.textContent = on ? '1' : '0';
     cell.title = `bit ${i}`;
 
-    const posFromLeft = bits - 1 - i;
-    if (posFromLeft > 0 && posFromLeft % 8 === 0) cell.classList.add('byte-start');
-    else if (posFromLeft > 0 && posFromLeft % 4 === 0) cell.classList.add('nibble-start');
+    // visual separators within each row (reset per row for 64-bit)
+    const posInRow = (bits - 1 - i) % colCount;
+    if (posInRow > 0 && posInRow % 8 === 0) cell.classList.add('byte-sep');
+    else if (posInRow > 0 && posInRow % 4 === 0) cell.classList.add('nibble-sep');
 
     cell.addEventListener('click', () => {
       const cur = currentValue();
@@ -123,21 +130,14 @@ function renderBitGrid(v) {
     bitGrid.appendChild(cell);
   }
 
-  // labels: one per nibble group showing the high bit index of that nibble
-  const labelWrap = document.createElement('div');
-  labelWrap.style.cssText = 'display:flex;justify-content:flex-end;gap:2px;width:100%;';
-  for (let i = bits - 1; i >= 0; i -= 4) {
-    const span = document.createElement('span');
-    span.style.cssText = `width:${i === bits-1 ? 20 : 20}px;text-align:center;font-size:10px;color:var(--muted);`;
-    if (i === bits - 1) span.style.marginLeft = '0';
-    // add byte-gap margin mirrors
-    const posFromLeft = bits - 1 - i;
-    if (posFromLeft > 0 && posFromLeft % 8 === 0) span.style.marginLeft = '10px';
-    else if (posFromLeft > 0) span.style.marginLeft = '5px';
-    span.textContent = i;
-    labelWrap.appendChild(span);
+  // Label row: one label per cell, content only at byte MSB positions.
+  // Same grid template as bit-grid so labels align perfectly.
+  for (let i = bits - 1; i >= 0; i--) {
+    const label = document.createElement('div');
+    label.className = 'bit-label';
+    if ((i + 1) % 8 === 0) label.textContent = i; // byte boundary
+    bitLabels.appendChild(label);
   }
-  bitLabels.appendChild(labelWrap);
 }
 
 function setEntryFromValue(v) {
@@ -331,6 +331,50 @@ document.addEventListener('keydown', e => {
   if (key === '*') { pressOp('×'); return; }
   if (key === '/') { e.preventDefault(); pressOp('÷'); return; }
 });
+
+// ---- fullscreen ----
+const fsBtn = document.getElementById('fs-btn');
+
+function isFsActive() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement
+            || document.body.classList.contains('calc-expanded'));
+}
+
+function updateFsBtn() {
+  const active = isFsActive();
+  fsBtn.textContent = active ? '⊡' : '⛶';
+  fsBtn.title = active ? 'Exit fullscreen' : 'Enter fullscreen';
+  fsBtn.classList.toggle('active', active);
+}
+
+async function toggleFullscreen() {
+  if (document.fullscreenElement || document.webkitFullscreenElement) {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  } else if (document.body.classList.contains('calc-expanded')) {
+    document.body.classList.remove('calc-expanded');
+    updateFsBtn();
+  } else {
+    const el = document.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen;
+    try {
+      await req.call(el);
+    } catch {
+      // iOS / unsupported: fall back to CSS maximize
+      document.body.classList.add('calc-expanded');
+      updateFsBtn();
+    }
+  }
+}
+
+function onFsChange() {
+  const active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  document.body.classList.toggle('calc-expanded', active);
+  updateFsBtn();
+}
+
+fsBtn.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', onFsChange);
+document.addEventListener('webkitfullscreenchange', onFsChange);
 
 // ---- init ----
 render();
