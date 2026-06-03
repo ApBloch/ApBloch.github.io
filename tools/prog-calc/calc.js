@@ -9,7 +9,6 @@ let accumulator = 0n;
 let pendingOp  = null;    // '+' | '−' | '×' | '÷' | 'AND' | 'OR' | 'XOR' | 'LSH' | 'RSH'
 let entry      = '0';
 let justEvaled = false;
-let parenDepth = 0;       // simple paren tracking (display only for now)
 
 // ---- DOM refs ----
 const displayMain = document.getElementById('display-main');
@@ -19,13 +18,9 @@ const bitGrid     = document.getElementById('bit-grid');
 const modeGroup   = document.getElementById('mode-group');
 const widthGroup  = document.getElementById('width-group');
 const signGroup    = document.getElementById('sign-group');
-const historyList    = document.getElementById('history-list');
-const historyClear   = document.getElementById('history-clear');
-const historyPanel   = document.getElementById('history-panel');
-const historyToggle  = document.getElementById('history-toggle');
-const historyChevron = document.getElementById('history-chevron');
-const historyCount   = document.getElementById('history-count');
-let   historyOpen    = false;
+const historyList  = document.getElementById('history-list');
+const historyClear = document.getElementById('history-clear');
+const historyCount = document.getElementById('history-count');
 
 // ---- masks & helpers ----
 function mask()     { return (1n << BigInt(bits)) - 1n; }
@@ -84,14 +79,6 @@ function currentValue() {
 function addToHistory(exprStr, value) {
   history.unshift({ exprStr, value });
   if (history.length > 12) history.pop();
-  // auto-open when first entry appears
-  if (history.length === 1) setHistoryOpen(true);
-}
-
-function setHistoryOpen(open) {
-  historyOpen = open;
-  historyPanel.classList.toggle('open', open);
-  historyChevron.textContent = open ? '▾' : '▸';
 }
 
 function renderHistory() {
@@ -378,11 +365,8 @@ signGroup.querySelectorAll('button').forEach(btn =>
   btn.addEventListener('click', () => setSign(btn.dataset.sign === 'signed'))
 );
 
-historyToggle.addEventListener('click', () => setHistoryOpen(!historyOpen));
-
 historyClear.addEventListener('click', () => {
   history = [];
-  setHistoryOpen(false);
   renderHistory();
 });
 

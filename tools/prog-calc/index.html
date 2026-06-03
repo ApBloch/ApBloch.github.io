@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Programmer Calculator — AP Bloch</title>
   <link rel="stylesheet" href="../../style.css" />
-  <link rel="stylesheet" href="calc.css?v=6" />
+  <link rel="stylesheet" href="calc.css?v=7" />
 </head>
 <body>
   <header>
@@ -53,11 +53,7 @@
       <!-- History -->
       <div class="history-panel" id="history-panel">
         <div class="history-header">
-          <button class="history-toggle" id="history-toggle">
-            <span>HISTORY</span>
-            <span class="history-count" id="history-count"></span>
-            <span class="history-chevron" id="history-chevron">▸</span>
-          </button>
+          <span class="history-label">HISTORY <span class="history-count" id="history-count"></span></span>
           <button id="history-clear" class="icon-btn" title="Clear history">×</button>
         </div>
         <div class="history-list" id="history-list"></div>
@@ -122,6 +118,6 @@
     </div>
   </main>
 
-  <script src="calc.js?v=5"></script>
+  <script src="calc.js?v=6"></script>
 </body>
 </html>

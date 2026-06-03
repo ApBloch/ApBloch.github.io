@@ -369,36 +369,17 @@ body.calc-expanded .calc-wrap {
   padding: 5px 8px 5px 12px;
 }
 
-.history-toggle {
-  background: none;
-  border: none;
+.history-label {
   color: var(--muted);
-  font-family: inherit;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
-  touch-action: manipulation;
 }
 
 .history-count { color: var(--accent); }
 
-.history-chevron { font-size: 9px; }
-
 .history-list {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease;
-  border-top: 0px solid var(--border);
-  transition: max-height 0.2s ease, border-top-width 0.2s;
-}
-
-.history-panel.open .history-list {
-  max-height: 130px;
+  height: 90px;
   overflow-y: auto;
   border-top: 1px solid var(--border);
 }
