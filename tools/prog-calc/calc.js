@@ -96,14 +96,14 @@ function formatSci(v) {
   const abs = Math.abs(v);
   for (const [scale, sym] of SI_PREFIXES) {
     if (abs >= scale * 0.9999999) {
-      const m = v / scale;
-      const s = parseFloat(m.toPrecision(6)).toString();
+      const mantissa = v / scale;
+      const s = parseFloat(mantissa.toFixed(3)).toString();
       return sym ? s + ' ' + sym : s;
     }
   }
   // below femto range
-  const m = v / 1e-15;
-  return parseFloat(m.toPrecision(6)).toString() + ' f';
+  const mantissa = v / 1e-15;
+  return parseFloat(mantissa.toFixed(3)).toString() + ' f';
 }
 
 function parseSciEntry() {
