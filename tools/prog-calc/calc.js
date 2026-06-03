@@ -19,8 +19,13 @@ const bitGrid     = document.getElementById('bit-grid');
 const modeGroup   = document.getElementById('mode-group');
 const widthGroup  = document.getElementById('width-group');
 const signGroup    = document.getElementById('sign-group');
-const historyList  = document.getElementById('history-list');
-const historyClear = document.getElementById('history-clear');
+const historyList    = document.getElementById('history-list');
+const historyClear   = document.getElementById('history-clear');
+const historyPanel   = document.getElementById('history-panel');
+const historyToggle  = document.getElementById('history-toggle');
+const historyChevron = document.getElementById('history-chevron');
+const historyCount   = document.getElementById('history-count');
+let   historyOpen    = false;
 
 // ---- masks & helpers ----
 function mask()     { return (1n << BigInt(bits)) - 1n; }
@@ -79,10 +84,20 @@ function currentValue() {
 function addToHistory(exprStr, value) {
   history.unshift({ exprStr, value });
   if (history.length > 12) history.pop();
+  // auto-open when first entry appears
+  if (history.length === 1) setHistoryOpen(true);
+}
+
+function setHistoryOpen(open) {
+  historyOpen = open;
+  historyPanel.classList.toggle('open', open);
+  historyChevron.textContent = open ? '▾' : '▸';
 }
 
 function renderHistory() {
-  const scrollTop = historyList.scrollTop; // preserve scroll position
+  historyCount.textContent = history.length > 0 ? `(${history.length})` : '';
+
+  const scrollTop = historyList.scrollTop;
   historyList.innerHTML = '';
 
   if (history.length === 0) {
@@ -363,8 +378,11 @@ signGroup.querySelectorAll('button').forEach(btn =>
   btn.addEventListener('click', () => setSign(btn.dataset.sign === 'signed'))
 );
 
+historyToggle.addEventListener('click', () => setHistoryOpen(!historyOpen));
+
 historyClear.addEventListener('click', () => {
   history = [];
+  setHistoryOpen(false);
   renderHistory();
 });
 

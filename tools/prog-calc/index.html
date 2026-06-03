@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Programmer Calculator — AP Bloch</title>
   <link rel="stylesheet" href="../../style.css" />
-  <link rel="stylesheet" href="calc.css?v=5" />
+  <link rel="stylesheet" href="calc.css?v=6" />
 </head>
 <body>
   <header>
@@ -27,10 +27,6 @@
           <button data-mode="bin">BIN</button>
         </div>
         <div class="top-right">
-          <div class="btn-group" id="sign-group">
-            <button data-sign="signed" class="selected" title="Signed">S</button>
-            <button data-sign="unsigned" title="Unsigned">U</button>
-          </div>
           <div class="btn-group" id="width-group">
             <button data-bits="8">8</button>
             <button data-bits="16">16</button>
@@ -43,15 +39,25 @@
 
       <!-- Display -->
       <div class="display-box">
-        <div class="display-expr" id="display-expr"></div>
+        <div class="display-top">
+          <div class="btn-group" id="sign-group">
+            <button data-sign="signed" class="selected" title="Signed">S</button>
+            <button data-sign="unsigned" title="Unsigned">U</button>
+          </div>
+          <div class="display-expr" id="display-expr"></div>
+        </div>
         <div class="display-main" id="display-main">0</div>
         <div class="display-secondary" id="display-secondary"></div>
       </div>
 
       <!-- History -->
-      <div class="history-panel">
+      <div class="history-panel" id="history-panel">
         <div class="history-header">
-          <span>HISTORY</span>
+          <button class="history-toggle" id="history-toggle">
+            <span>HISTORY</span>
+            <span class="history-count" id="history-count"></span>
+            <span class="history-chevron" id="history-chevron">▸</span>
+          </button>
           <button id="history-clear" class="icon-btn" title="Clear history">×</button>
         </div>
         <div class="history-list" id="history-list"></div>
