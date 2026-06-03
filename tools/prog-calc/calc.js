@@ -14,7 +14,6 @@ const displayMain = document.getElementById('display-main');
 const displayExpr = document.getElementById('display-expr');
 const displaySec  = document.getElementById('display-secondary');
 const bitGrid     = document.getElementById('bit-grid');
-const bitLabels   = document.getElementById('bit-labels');
 const modeGroup   = document.getElementById('mode-group');
 const widthGroup  = document.getElementById('width-group');
 
@@ -97,46 +96,57 @@ function render() {
   updateOpHighlight();
 }
 
-function renderBitGrid(v) {
-  bitGrid.innerHTML = '';
-  bitLabels.innerHTML = '';
+function createNibbleGroup(nibbleIndex, v) {
+  const high = nibbleIndex * 4 + 3;
+  const low  = nibbleIndex * 4;
 
-  // Max 32 bits per row; 64-bit uses two rows of 32.
-  const colCount = Math.min(bits, 32);
-  const cols = `repeat(${colCount}, 1fr)`;
-  bitGrid.style.gridTemplateColumns = cols;
-  bitLabels.style.gridTemplateColumns = cols;
+  const group = document.createElement('div');
+  group.className = 'nibble-group';
 
-  for (let i = bits - 1; i >= 0; i--) {
+  const bitsDiv   = document.createElement('div');
+  bitsDiv.className = 'nibble-bits';
+  const labelsDiv = document.createElement('div');
+  labelsDiv.className = 'nibble-labels';
+
+  for (let i = high; i >= low; i--) {
+    const on   = (v >> BigInt(i)) & 1n;
     const cell = document.createElement('div');
     cell.className = 'bit-cell';
-    const on = (v >> BigInt(i)) & 1n;
     if (on) cell.classList.add('on');
     cell.textContent = on ? '1' : '0';
     cell.title = `bit ${i}`;
-
-    // visual separators within each row (reset per row for 64-bit)
-    const posInRow = (bits - 1 - i) % colCount;
-    if (posInRow > 0 && posInRow % 8 === 0) cell.classList.add('byte-sep');
-    else if (posInRow > 0 && posInRow % 4 === 0) cell.classList.add('nibble-sep');
-
     cell.addEventListener('click', () => {
-      const cur = currentValue();
-      const toggled = cur ^ (1n << BigInt(i));
-      setEntryFromValue(toggled);
+      setEntryFromValue(currentValue() ^ (1n << BigInt(i)));
       render();
     });
+    bitsDiv.appendChild(cell);
 
-    bitGrid.appendChild(cell);
+    const lbl = document.createElement('div');
+    lbl.className = 'bit-label';
+    if (i === high || i === low) lbl.textContent = i;
+    labelsDiv.appendChild(lbl);
   }
 
-  // Label row: one label per cell, content only at byte MSB positions.
-  // Same grid template as bit-grid so labels align perfectly.
-  for (let i = bits - 1; i >= 0; i--) {
-    const label = document.createElement('div');
-    label.className = 'bit-label';
-    if ((i + 1) % 8 === 0) label.textContent = i; // byte boundary
-    bitLabels.appendChild(label);
+  group.appendChild(bitsDiv);
+  group.appendChild(labelsDiv);
+  return group;
+}
+
+function renderBitGrid(v) {
+  bitGrid.innerHTML = '';
+
+  const numNibbles    = bits / 4;
+  const nibblesPerRow = Math.min(numNibbles, 8); // max 8 per row (= 32 bits)
+
+  // Render rows from MSB to LSB
+  for (let rowHigh = numNibbles - 1; rowHigh >= 0; rowHigh -= nibblesPerRow) {
+    const row    = document.createElement('div');
+    row.className = 'nibble-row';
+    const rowLow = Math.max(rowHigh - nibblesPerRow + 1, 0);
+    for (let n = rowHigh; n >= rowLow; n--) {
+      row.appendChild(createNibbleGroup(n, v));
+    }
+    bitGrid.appendChild(row);
   }
 }
 
