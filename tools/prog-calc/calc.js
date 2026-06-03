@@ -1,14 +1,15 @@
 'use strict';
 
 // ---- state ----
-let mode       = 'dec';   // 'dec' | 'hex' | 'oct' | 'bin'
-let bits       = 32;
-let signed     = true;
-let history    = []; // [{exprStr, value: BigInt}], newest first
-let accumulator = 0n;
-let pendingOp  = null;    // '+' | '−' | '×' | '÷' | 'AND' | 'OR' | 'XOR' | 'LSH' | 'RSH'
-let entry      = '0';
-let justEvaled = false;
+let mode          = 'dec';   // 'dec' | 'hex' | 'oct' | 'bin' | 'sci'
+let bits          = 32;
+let signed        = true;
+let history       = []; // [{exprStr, value: BigInt|number}], newest first
+let accumulator   = 0n;
+let sciAccumulator = 0;  // float accumulator for SCI mode
+let pendingOp     = null;
+let entry         = '0';
+let justEvaled    = false;
 
 // ---- DOM refs ----
 const displayMain = document.getElementById('display-main');
@@ -21,6 +22,7 @@ const signGroup    = document.getElementById('sign-group');
 const historyList  = document.getElementById('history-list');
 const historyClear = document.getElementById('history-clear');
 const historyCount = document.getElementById('history-count');
+const calcWrap     = document.querySelector('.calc-wrap');
 
 // ---- masks & helpers ----
 function mask()     { return (1n << BigInt(bits)) - 1n; }
@@ -30,7 +32,6 @@ function signedVal(v) {
 }
 
 function clampToWidth(v) {
-  // keep unsigned representation within width
   const m = mask();
   return ((v % (m + 1n)) + m + 1n) % (m + 1n);
 }
@@ -62,7 +63,6 @@ function formatValue(v, m) {
     case 'oct': return v.toString(8);
     case 'bin': {
       const raw = v.toString(2).padStart(bits, '0');
-      // group into nibbles
       const groups = [];
       for (let i = 0; i < raw.length; i += 4) groups.push(raw.slice(i, i + 4));
       return groups.join(' ');
@@ -73,6 +73,60 @@ function formatValue(v, m) {
 
 function currentValue() {
   return parseEntry();
+}
+
+// ---- SI / engineering notation ----
+const SI_BTN_MAP = {
+  'AND': { label: 'G', factor: 1e9  },
+  'OR':  { label: 'M', factor: 1e6  },
+  'XOR': { label: 'k', factor: 1e3  },
+  'NOT': { label: 'm', factor: 1e-3 },
+  'LSH': { label: 'μ', factor: 1e-6 },
+  'RSH': { label: 'n', factor: 1e-9 },
+};
+
+const SI_PREFIXES = [
+  [1e15, 'P'], [1e12, 'T'], [1e9, 'G'], [1e6, 'M'], [1e3, 'k'],
+  [1, ''], [1e-3, 'm'], [1e-6, 'μ'], [1e-9, 'n'], [1e-12, 'p'], [1e-15, 'f']
+];
+
+function formatSci(v) {
+  if (!isFinite(v)) return isNaN(v) ? 'Error' : (v > 0 ? '∞' : '-∞');
+  if (v === 0) return '0';
+  const abs = Math.abs(v);
+  for (const [scale, sym] of SI_PREFIXES) {
+    if (abs >= scale * 0.9999999) {
+      const m = v / scale;
+      const s = parseFloat(m.toPrecision(6)).toString();
+      return sym ? s + ' ' + sym : s;
+    }
+  }
+  // below femto range
+  const m = v / 1e-15;
+  return parseFloat(m.toPrecision(6)).toString() + ' f';
+}
+
+function parseSciEntry() {
+  const s = entry.trim();
+  if (!s || s === '-' || s === '.' || s === '-.') return 0;
+  return parseFloat(s) || 0;
+}
+
+function applySciOp(op, a, b) {
+  switch (op) {
+    case '+': return a + b;
+    case '−': return a - b;
+    case '×': return a * b;
+    case '÷': return b === 0 ? Infinity : a / b;
+    default: return b;
+  }
+}
+
+function pressDot() {
+  if (mode !== 'sci') return;
+  if (justEvaled) { entry = '0.'; justEvaled = false; }
+  else if (!entry.includes('.')) entry += '.';
+  render();
 }
 
 // ---- history ----
@@ -94,9 +148,9 @@ function renderHistory() {
     historyList.appendChild(empty);
   } else {
     history.forEach(item => {
-      const entry = document.createElement('div');
-      entry.className = 'history-entry';
-      entry.title = 'Tap to recall';
+      const row = document.createElement('div');
+      row.className = 'history-entry';
+      row.title = 'Tap to recall';
 
       const expr = document.createElement('div');
       expr.className = 'history-expr';
@@ -104,16 +158,21 @@ function renderHistory() {
 
       const res = document.createElement('div');
       res.className = 'history-result';
-      res.textContent = formatValue(item.value & mask(), mode);
+      if (typeof item.value === 'bigint') {
+        const displayMode = mode === 'sci' ? 'dec' : mode;
+        res.textContent = formatValue(item.value & mask(), displayMode);
+      } else {
+        res.textContent = formatSci(item.value);
+      }
 
-      entry.appendChild(expr);
-      entry.appendChild(res);
-      entry.addEventListener('click', () => {
+      row.appendChild(expr);
+      row.appendChild(res);
+      row.addEventListener('click', () => {
         setEntryFromValue(item.value);
         justEvaled = true;
         render();
       });
-      historyList.appendChild(entry);
+      historyList.appendChild(row);
     });
   }
 
@@ -122,26 +181,23 @@ function renderHistory() {
 
 // ---- rendering ----
 function render() {
-  const v = currentValue();
-
-  // main display: show entry as-is while typing, formatted on eval
-  displayMain.textContent = entry === '0' ? '0' : entry;
-
-  // secondary: hex when not in hex mode; dec otherwise
-  if (mode !== 'hex') {
-    displaySec.textContent = '0x' + v.toString(16).toUpperCase().padStart(bits / 4, '0');
+  if (mode === 'sci') {
+    const v = parseSciEntry();
+    displayMain.textContent = entry === '0' ? '0' : entry;
+    displaySec.textContent  = formatSci(v);
+    displayExpr.textContent = pendingOp ? formatSci(sciAccumulator) + ' ' + pendingOp : '';
   } else {
-    displaySec.textContent = (signed ? signedVal(v) : v).toString(10);
+    const v = currentValue();
+    displayMain.textContent = entry === '0' ? '0' : entry;
+    if (mode !== 'hex') {
+      displaySec.textContent = '0x' + v.toString(16).toUpperCase().padStart(bits / 4, '0');
+    } else {
+      displaySec.textContent = (signed ? signedVal(v) : v).toString(10);
+    }
+    displayExpr.textContent = pendingOp ? formatValue(accumulator, mode) + ' ' + pendingOp : '';
+    renderBitGrid(v);
   }
 
-  // expr line
-  if (pendingOp) {
-    displayExpr.textContent = formatValue(accumulator, mode) + ' ' + pendingOp;
-  } else {
-    displayExpr.textContent = '';
-  }
-
-  renderBitGrid(v);
   renderHistory();
   updateKeypadState();
   updateOpHighlight();
@@ -202,7 +258,14 @@ function renderBitGrid(v) {
 }
 
 function setEntryFromValue(v) {
-  const clamped = clampToWidth(v);
+  if (mode === 'sci') {
+    const n = typeof v === 'bigint' ? Number(v) : (isFinite(v) ? v : 0);
+    entry = n.toString();
+    return;
+  }
+  const clamped = typeof v === 'bigint'
+    ? clampToWidth(v)
+    : clampToWidth(BigInt(Math.trunc(isFinite(v) ? v : 0)));
   switch (mode) {
     case 'hex': entry = clamped.toString(16).toUpperCase() || '0'; break;
     case 'oct': entry = clamped.toString(8) || '0'; break;
@@ -217,13 +280,33 @@ const digitMap = {
   hex: new Set(['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']),
   oct: new Set(['0','1','2','3','4','5','6','7']),
   bin: new Set(['0','1']),
+  sci: new Set(['0','1','2','3','4','5','6','7','8','9']),
 };
 
 function updateKeypadState() {
-  const allowed = digitMap[mode];
+  const allowed = digitMap[mode] || digitMap.dec;
   document.querySelectorAll('.key.digit, .key.hex-only').forEach(btn => {
-    const k = btn.dataset.key;
-    btn.disabled = !allowed.has(k);
+    btn.disabled = !allowed.has(btn.dataset.key);
+  });
+
+  // Repurpose ( as decimal point in SCI mode; disable ) in SCI mode
+  const parenOpen  = document.querySelector('.key[data-key="("]');
+  const parenClose = document.querySelector('.key[data-key=")"]');
+  if (parenOpen)  parenOpen.textContent = mode === 'sci' ? '.' : '(';
+  if (parenClose) parenClose.disabled   = mode === 'sci';
+
+  // In SCI mode relabel bitwise buttons as SI prefix multipliers
+  document.querySelectorAll('.op-btn').forEach(btn => {
+    const si = SI_BTN_MAP[btn.dataset.op];
+    if (mode === 'sci') {
+      btn.textContent = si ? si.label : btn.dataset.op;
+      btn.disabled = !si;
+      btn.style.opacity = si ? '' : '0.25';
+    } else {
+      btn.textContent = btn.dataset.op;
+      btn.disabled = false;
+      btn.style.opacity = '';
+    }
   });
 }
 
@@ -255,7 +338,6 @@ function applyBinary(op, a, b) {
 function applyUnary(op) {
   const v = currentValue();
   const m = mask();
-  const b = BigInt(bits);
   let result;
   switch (op) {
     case 'NOT': result = (~v) & m; break;
@@ -268,13 +350,16 @@ function applyUnary(op) {
 }
 
 function pressOp(op) {
-  const v = currentValue();
-  if (pendingOp && !justEvaled) {
-    const result = applyBinary(pendingOp, accumulator, v);
-    accumulator = result;
-  } else {
-    accumulator = v;
+  if (mode === 'sci') {
+    const v = parseSciEntry();
+    sciAccumulator = (pendingOp && !justEvaled) ? applySciOp(pendingOp, sciAccumulator, v) : v;
+    pendingOp  = op;
+    justEvaled = true;
+    render();
+    return;
   }
+  const v = currentValue();
+  accumulator = (pendingOp && !justEvaled) ? applyBinary(pendingOp, accumulator, v) : v;
   pendingOp  = op;
   justEvaled = true;
   render();
@@ -282,8 +367,20 @@ function pressOp(op) {
 
 function pressEquals() {
   if (!pendingOp) return;
+  if (mode === 'sci') {
+    const v = parseSciEntry();
+    const result  = applySciOp(pendingOp, sciAccumulator, v);
+    const exprStr = formatSci(sciAccumulator) + ' ' + pendingOp + ' ' + formatSci(v);
+    sciAccumulator = result;
+    pendingOp  = null;
+    justEvaled = true;
+    entry = result.toString();
+    addToHistory(exprStr, result);
+    render();
+    return;
+  }
   const v = currentValue();
-  const result = applyBinary(pendingOp, accumulator, v);
+  const result  = applyBinary(pendingOp, accumulator, v);
   const exprStr = formatValue(accumulator, mode) + ' ' + pendingOp + ' ' + formatValue(v, mode);
   accumulator = result;
   pendingOp   = null;
@@ -294,7 +391,7 @@ function pressEquals() {
 }
 
 function pressDigit(d) {
-  if (!digitMap[mode].has(d)) return;
+  if (!(digitMap[mode] || digitMap.dec).has(d)) return;
   if (justEvaled) { entry = d; justEvaled = false; }
   else if (entry === '0') { entry = d; }
   else { entry += d; }
@@ -308,13 +405,25 @@ function pressBack() {
 }
 
 function pressCE() {
+  if (mode === 'sci') {
+    if (entry !== '0') { entry = '0'; }
+    else { sciAccumulator = 0; pendingOp = null; justEvaled = false; }
+    render();
+    return;
+  }
   if (entry !== '0') { entry = '0'; }
   else { accumulator = 0n; pendingOp = null; justEvaled = false; }
   render();
 }
 
 function pressNeg() {
-  if (!signed) return; // unsigned: negation not meaningful
+  if (mode === 'sci') {
+    if (entry.startsWith('-')) entry = entry.slice(1);
+    else if (entry !== '0') entry = '-' + entry;
+    render();
+    return;
+  }
+  if (!signed) return;
   if (mode === 'dec') {
     if (entry.startsWith('-')) entry = entry.slice(1);
     else if (entry !== '0')    entry = '-' + entry;
@@ -328,9 +437,27 @@ function pressNeg() {
 
 // ---- mode & width ----
 function setMode(m) {
-  const v = currentValue();
-  mode = m;
-  setEntryFromValue(v);
+  const prevMode = mode;
+  if (m === 'sci' && prevMode !== 'sci') {
+    const bigVal = currentValue();
+    mode = 'sci';
+    sciAccumulator = 0;
+    pendingOp = null;
+    justEvaled = false;
+    entry = Number(bigVal).toString();
+  } else if (prevMode === 'sci' && m !== 'sci') {
+    const floatVal = parseSciEntry();
+    mode = m;
+    sciAccumulator = 0;
+    pendingOp = null;
+    const safe = isFinite(floatVal) ? floatVal : 0;
+    setEntryFromValue(clampToWidth(BigInt(Math.trunc(safe))));
+  } else if (m !== 'sci') {
+    const v = currentValue();
+    mode = m;
+    setEntryFromValue(v);
+  }
+  calcWrap.classList.toggle('sci-mode', m === 'sci');
   modeGroup.querySelectorAll('button').forEach(b => b.classList.toggle('selected', b.dataset.mode === m));
   render();
 }
@@ -345,9 +472,9 @@ function setWidth(w) {
 }
 
 function setSign(s) {
-  const v = currentValue(); // read value before changing signed flag
+  const v = currentValue();
   signed = s;
-  if (mode === 'dec') setEntryFromValue(v); // reformat decimal entry
+  if (mode === 'dec') setEntryFromValue(v);
   signGroup.querySelectorAll('button').forEach(b => b.classList.toggle('selected', b.dataset.sign === (s ? 'signed' : 'unsigned')));
   render();
 }
@@ -372,6 +499,15 @@ historyClear.addEventListener('click', () => {
 
 document.querySelectorAll('.op-btn').forEach(btn =>
   btn.addEventListener('click', () => {
+    if (mode === 'sci') {
+      const si = SI_BTN_MAP[btn.dataset.op];
+      if (!si) return;
+      const v = parseSciEntry();
+      entry = (v * si.factor).toString();
+      justEvaled = true;
+      render();
+      return;
+    }
     const op = btn.dataset.op;
     if (op === 'NOT') applyUnary('NOT');
     else pressOp(op);
@@ -391,6 +527,7 @@ document.querySelectorAll('.key').forEach(btn => {
       case 'CE':   pressCE(); break;
       case 'BACK': pressBack(); break;
       case 'NEG':  pressNeg(); break;
+      case '(':    pressDot(); break; // becomes '.' in SCI mode
     }
   });
 });
@@ -403,9 +540,10 @@ document.addEventListener('keydown', e => {
   if (key === 'Enter' || key === '=') { e.preventDefault(); pressEquals(); return; }
   if (key === 'Backspace') { e.preventDefault(); pressBack(); return; }
   if (key === 'Escape' || key === 'Delete') { e.preventDefault(); pressCE(); return; }
+  if (key === '.') { e.preventDefault(); pressDot(); return; }
 
   const upper = key.toUpperCase();
-  if (digitMap[mode].has(upper)) { pressDigit(upper); return; }
+  if ((digitMap[mode] || digitMap.dec).has(upper)) { pressDigit(upper); return; }
 
   if (key === '+') { pressOp('+'); return; }
   if (key === '-') { pressOp('−'); return; }
@@ -441,7 +579,6 @@ async function toggleFullscreen() {
     try {
       await req.call(el);
     } catch {
-      // iOS / unsupported: fall back to CSS maximize
       document.body.classList.add('calc-expanded');
       updateFsBtn();
     }

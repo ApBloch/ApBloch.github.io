@@ -373,6 +373,9 @@ body.calc-expanded .calc-wrap {
   }
 }
 
+/* ---- SCI mode ---- */
+.calc-wrap.sci-mode .bit-grid-wrap { display: none; }
+
 /* ---- history ---- */
 .history-panel {
   background: var(--surface);
