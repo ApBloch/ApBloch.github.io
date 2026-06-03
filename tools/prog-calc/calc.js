@@ -183,8 +183,8 @@ function renderHistory() {
 function render() {
   if (mode === 'sci') {
     const v = parseSciEntry();
-    displayMain.textContent = entry === '0' ? '0' : entry;
-    displaySec.textContent  = formatSci(v);
+    displayMain.textContent = formatSci(v);
+    displaySec.textContent  = entry === '0' ? '' : entry;
     displayExpr.textContent = pendingOp ? formatSci(sciAccumulator) + ' ' + pendingOp : '';
   } else {
     const v = currentValue();
