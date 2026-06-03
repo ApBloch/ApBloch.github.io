@@ -177,6 +177,14 @@
 
 .bit-cell:hover { border-color: var(--accent); }
 
+.nibble-group.inactive .bit-cell {
+  opacity: 0.18;
+  cursor: default;
+  pointer-events: none;
+}
+
+.nibble-group.inactive .bit-label { opacity: 0.18; }
+
 .bit-cell.on {
   background: var(--accent);
   border-color: var(--accent);
@@ -322,6 +330,17 @@
   .display-main { font-size: 28px; }
   .key { padding: 10px 0; font-size: 15px; }
   .key.op, .key.eq { font-size: 17px; }
+}
+
+/* Compact layout for typical phone heights */
+@media (max-width: 520px) and (max-height: 900px) {
+  .calc-wrap { gap: 6px; }
+  .display-box { min-height: 72px; padding: 8px 12px 6px; }
+  .display-main { font-size: 26px; }
+  .history-list { height: 68px; }
+  .bit-grid-wrap { padding: 6px 10px 4px; }
+  .op-btn { padding: 5px 0; font-size: 11px; }
+  .key { padding: 8px 0; }
 }
 
 /* ---- fullscreen / maximized ---- */

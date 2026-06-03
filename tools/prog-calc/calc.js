@@ -147,12 +147,13 @@ function render() {
   updateOpHighlight();
 }
 
-function createNibbleGroup(nibbleIndex, v) {
+function createNibbleGroup(nibbleIndex, v, active) {
   const high = nibbleIndex * 4 + 3;
   const low  = nibbleIndex * 4;
 
   const group = document.createElement('div');
   group.className = 'nibble-group';
+  if (!active) group.classList.add('inactive');
 
   const bitsDiv   = document.createElement('div');
   bitsDiv.className = 'nibble-bits';
@@ -160,16 +161,18 @@ function createNibbleGroup(nibbleIndex, v) {
   labelsDiv.className = 'nibble-labels';
 
   for (let i = high; i >= low; i--) {
-    const on   = (v >> BigInt(i)) & 1n;
+    const on   = active && ((v >> BigInt(i)) & 1n);
     const cell = document.createElement('div');
     cell.className = 'bit-cell';
     if (on) cell.classList.add('on');
     cell.textContent = on ? '1' : '0';
     cell.title = `bit ${i}`;
-    cell.addEventListener('click', () => {
-      setEntryFromValue(currentValue() ^ (1n << BigInt(i)));
-      render();
-    });
+    if (active) {
+      cell.addEventListener('click', () => {
+        setEntryFromValue(currentValue() ^ (1n << BigInt(i)));
+        render();
+      });
+    }
     bitsDiv.appendChild(cell);
 
     const lbl = document.createElement('div');
@@ -186,16 +189,13 @@ function createNibbleGroup(nibbleIndex, v) {
 function renderBitGrid(v) {
   bitGrid.innerHTML = '';
 
-  const numNibbles    = bits / 4;
-  const nibblesPerRow = Math.min(numNibbles, 4); // max 4 per row (= 16 bits)
-
-  // Render rows from MSB to LSB
-  for (let rowHigh = numNibbles - 1; rowHigh >= 0; rowHigh -= nibblesPerRow) {
-    const row    = document.createElement('div');
+  // Always render 2 rows × 4 nibbles = 32 bits; inactive nibbles are grayed
+  for (let rowHigh = 7; rowHigh >= 0; rowHigh -= 4) {
+    const row = document.createElement('div');
     row.className = 'nibble-row';
-    const rowLow = Math.max(rowHigh - nibblesPerRow + 1, 0);
-    for (let n = rowHigh; n >= rowLow; n--) {
-      row.appendChild(createNibbleGroup(n, v));
+    for (let n = rowHigh; n >= rowHigh - 3; n--) {
+      const active = (n + 1) * 4 <= bits;
+      row.appendChild(createNibbleGroup(n, v, active));
     }
     bitGrid.appendChild(row);
   }
