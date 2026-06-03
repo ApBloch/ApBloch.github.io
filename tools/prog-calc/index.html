@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Programmer Calculator — AP Bloch</title>
   <link rel="stylesheet" href="../../style.css" />
-  <link rel="stylesheet" href="calc.css?v=3" />
+  <link rel="stylesheet" href="calc.css?v=4" />
 </head>
 <body>
   <header>
@@ -27,6 +27,10 @@
           <button data-mode="bin">BIN</button>
         </div>
         <div class="top-right">
+          <div class="btn-group" id="sign-group">
+            <button data-sign="signed" class="selected" title="Signed">S</button>
+            <button data-sign="unsigned" title="Unsigned">U</button>
+          </div>
           <div class="btn-group" id="width-group">
             <button data-bits="8">8</button>
             <button data-bits="16">16</button>
@@ -103,6 +107,6 @@
     </div>
   </main>
 
-  <script src="calc.js?v=3"></script>
+  <script src="calc.js?v=4"></script>
 </body>
 </html>

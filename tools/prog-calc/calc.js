@@ -3,6 +3,7 @@
 // ---- state ----
 let mode       = 'dec';   // 'dec' | 'hex' | 'oct' | 'bin'
 let bits       = 32;
+let signed     = true;
 let accumulator = 0n;
 let pendingOp  = null;    // '+' | '−' | '×' | '÷' | 'AND' | 'OR' | 'XOR' | 'LSH' | 'RSH'
 let entry      = '0';
@@ -16,6 +17,7 @@ const displaySec  = document.getElementById('display-secondary');
 const bitGrid     = document.getElementById('bit-grid');
 const modeGroup   = document.getElementById('mode-group');
 const widthGroup  = document.getElementById('width-group');
+const signGroup   = document.getElementById('sign-group');
 
 // ---- masks & helpers ----
 function mask()     { return (1n << BigInt(bits)) - 1n; }
@@ -62,7 +64,7 @@ function formatValue(v, m) {
       for (let i = 0; i < raw.length; i += 4) groups.push(raw.slice(i, i + 4));
       return groups.join(' ');
     }
-    default: return signedVal(v).toString(10);
+    default: return (signed ? signedVal(v) : v).toString(10);
   }
 }
 
@@ -81,7 +83,7 @@ function render() {
   if (mode !== 'hex') {
     displaySec.textContent = '0x' + v.toString(16).toUpperCase().padStart(bits / 4, '0');
   } else {
-    displaySec.textContent = signedVal(v).toString(10);
+    displaySec.textContent = (signed ? signedVal(v) : v).toString(10);
   }
 
   // expr line
@@ -136,7 +138,7 @@ function renderBitGrid(v) {
   bitGrid.innerHTML = '';
 
   const numNibbles    = bits / 4;
-  const nibblesPerRow = Math.min(numNibbles, 8); // max 8 per row (= 32 bits)
+  const nibblesPerRow = Math.min(numNibbles, 4); // max 4 per row (= 16 bits)
 
   // Render rows from MSB to LSB
   for (let rowHigh = numNibbles - 1; rowHigh >= 0; rowHigh -= nibblesPerRow) {
@@ -156,7 +158,7 @@ function setEntryFromValue(v) {
     case 'hex': entry = clamped.toString(16).toUpperCase() || '0'; break;
     case 'oct': entry = clamped.toString(8) || '0'; break;
     case 'bin': entry = clamped.toString(2) || '0'; break;
-    default:    entry = signedVal(clamped).toString(10) || '0'; break;
+    default:    entry = (signed ? signedVal(clamped) : clamped).toString(10) || '0'; break;
   }
 }
 
@@ -261,6 +263,7 @@ function pressCE() {
 }
 
 function pressNeg() {
+  if (!signed) return; // unsigned: negation not meaningful
   if (mode === 'dec') {
     if (entry.startsWith('-')) entry = entry.slice(1);
     else if (entry !== '0')    entry = '-' + entry;
@@ -290,6 +293,14 @@ function setWidth(w) {
   render();
 }
 
+function setSign(s) {
+  const v = currentValue(); // read value before changing signed flag
+  signed = s;
+  if (mode === 'dec') setEntryFromValue(v); // reformat decimal entry
+  signGroup.querySelectorAll('button').forEach(b => b.classList.toggle('selected', b.dataset.sign === (s ? 'signed' : 'unsigned')));
+  render();
+}
+
 // ---- event wiring ----
 modeGroup.querySelectorAll('button').forEach(btn =>
   btn.addEventListener('click', () => setMode(btn.dataset.mode))
@@ -297,6 +308,10 @@ modeGroup.querySelectorAll('button').forEach(btn =>
 
 widthGroup.querySelectorAll('button').forEach(btn =>
   btn.addEventListener('click', () => setWidth(parseInt(btn.dataset.bits)))
+);
+
+signGroup.querySelectorAll('button').forEach(btn =>
+  btn.addEventListener('click', () => setSign(btn.dataset.sign === 'signed'))
 );
 
 document.querySelectorAll('.op-btn').forEach(btn =>
