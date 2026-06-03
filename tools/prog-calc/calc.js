@@ -4,6 +4,7 @@
 let mode       = 'dec';   // 'dec' | 'hex' | 'oct' | 'bin'
 let bits       = 32;
 let signed     = true;
+let history    = []; // [{exprStr, value: BigInt}], newest first
 let accumulator = 0n;
 let pendingOp  = null;    // '+' | '−' | '×' | '÷' | 'AND' | 'OR' | 'XOR' | 'LSH' | 'RSH'
 let entry      = '0';
@@ -17,7 +18,9 @@ const displaySec  = document.getElementById('display-secondary');
 const bitGrid     = document.getElementById('bit-grid');
 const modeGroup   = document.getElementById('mode-group');
 const widthGroup  = document.getElementById('width-group');
-const signGroup   = document.getElementById('sign-group');
+const signGroup    = document.getElementById('sign-group');
+const historyList  = document.getElementById('history-list');
+const historyClear = document.getElementById('history-clear');
 
 // ---- masks & helpers ----
 function mask()     { return (1n << BigInt(bits)) - 1n; }
@@ -72,6 +75,49 @@ function currentValue() {
   return parseEntry();
 }
 
+// ---- history ----
+function addToHistory(exprStr, value) {
+  history.unshift({ exprStr, value });
+  if (history.length > 12) history.pop();
+}
+
+function renderHistory() {
+  const scrollTop = historyList.scrollTop; // preserve scroll position
+  historyList.innerHTML = '';
+
+  if (history.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'history-empty';
+    empty.textContent = 'No history yet';
+    historyList.appendChild(empty);
+  } else {
+    history.forEach(item => {
+      const entry = document.createElement('div');
+      entry.className = 'history-entry';
+      entry.title = 'Tap to recall';
+
+      const expr = document.createElement('div');
+      expr.className = 'history-expr';
+      expr.textContent = item.exprStr;
+
+      const res = document.createElement('div');
+      res.className = 'history-result';
+      res.textContent = formatValue(item.value & mask(), mode);
+
+      entry.appendChild(expr);
+      entry.appendChild(res);
+      entry.addEventListener('click', () => {
+        setEntryFromValue(item.value);
+        justEvaled = true;
+        render();
+      });
+      historyList.appendChild(entry);
+    });
+  }
+
+  historyList.scrollTop = scrollTop;
+}
+
 // ---- rendering ----
 function render() {
   const v = currentValue();
@@ -94,6 +140,7 @@ function render() {
   }
 
   renderBitGrid(v);
+  renderHistory();
   updateKeypadState();
   updateOpHighlight();
 }
@@ -235,10 +282,12 @@ function pressEquals() {
   if (!pendingOp) return;
   const v = currentValue();
   const result = applyBinary(pendingOp, accumulator, v);
+  const exprStr = formatValue(accumulator, mode) + ' ' + pendingOp + ' ' + formatValue(v, mode);
   accumulator = result;
   pendingOp   = null;
   justEvaled  = true;
   setEntryFromValue(result);
+  addToHistory(exprStr, result);
   render();
 }
 
@@ -313,6 +362,11 @@ widthGroup.querySelectorAll('button').forEach(btn =>
 signGroup.querySelectorAll('button').forEach(btn =>
   btn.addEventListener('click', () => setSign(btn.dataset.sign === 'signed'))
 );
+
+historyClear.addEventListener('click', () => {
+  history = [];
+  renderHistory();
+});
 
 document.querySelectorAll('.op-btn').forEach(btn =>
   btn.addEventListener('click', () => {

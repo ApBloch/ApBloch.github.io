@@ -345,3 +345,66 @@ body.calc-expanded .calc-wrap {
     min-height: 100dvh;
   }
 }
+
+/* ---- history ---- */
+.history-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.history-list {
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.history-empty {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--border);
+  text-align: center;
+}
+
+.history-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.08s;
+}
+
+.history-entry:hover,
+.history-entry:active { background: var(--btn-bg); }
+
+.history-expr {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.history-result {
+  font-size: 14px;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
