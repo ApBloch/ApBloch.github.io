@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Match — AP Bloch</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="match.css?v=1" />
+</head>
+<body>
+  <header>
+    <h1><a href="../../" style="color:inherit;text-decoration:none">Tools</a></h1>
+    <nav>
+      <a href="./" class="active">Movie Match</a>
+    </nav>
+  </header>
+
+  <main class="mm-main">
+
+    <!-- ============ KEY SETUP SCREEN ============ -->
+    <section id="setup-screen" class="mm-panel" hidden>
+      <h2>Connect to TMDB</h2>
+      <p class="mm-lead">
+        Movie Match uses <strong>The Movie Database (TMDB)</strong> for its catalog,
+        similar-movie suggestions, and streaming availability. It's free — you just
+        need your own API key. Your key is stored only in this browser and never
+        leaves your device (except in requests you make directly to TMDB).
+      </p>
+
+      <details class="mm-help" open>
+        <summary>How to get a free TMDB API key (about 2 minutes)</summary>
+        <ol>
+          <li>Go to <a href="https://www.themoviedb.org/signup" target="_blank" rel="noopener">themoviedb.org/signup</a> and create a free account (verify your email).</li>
+          <li>Open your <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">API settings</a> (Profile → Settings → API).</li>
+          <li>Click <em>Create</em> → choose <strong>Developer</strong> → accept the terms.</li>
+          <li>Fill in the short form (for "Type of Use" pick <em>Personal</em>; you can put any URL like <code>http://localhost</code> and a brief description).</li>
+          <li>Once approved (instant), copy the <strong>API Key (v3 auth)</strong> — a 32-character string.</li>
+          <li>Paste it below.</li>
+        </ol>
+        <p class="mm-note">Tip: use the <strong>API Key (v3 auth)</strong> value, not the longer "API Read Access Token".</p>
+      </details>
+
+      <form id="key-form" class="mm-key-form">
+        <input id="key-input" type="text" spellcheck="false" autocomplete="off"
+               placeholder="Paste your TMDB API key (v3 auth)" />
+        <button type="submit" id="key-submit">Connect</button>
+      </form>
+      <div id="key-status" class="mm-status" aria-live="polite"></div>
+    </section>
+
+    <!-- ============ MAIN APP SCREEN ============ -->
+    <section id="app-screen" class="mm-panel" hidden>
+
+      <div class="mm-toprow">
+        <div class="mm-region">
+          <label for="region-select">Your country</label>
+          <select id="region-select"></select>
+        </div>
+        <button id="change-key" class="mm-link-btn" title="Change or remove your API key">Change API key</button>
+      </div>
+
+      <!-- Step 1: favorites -->
+      <div class="mm-step">
+        <h3>1 · Add a few movies you love</h3>
+        <div class="mm-search-wrap">
+          <input id="movie-search" type="text" autocomplete="off" spellcheck="false"
+                 placeholder="Search a movie… e.g. Blade Runner" />
+          <div id="search-results" class="mm-search-results" hidden></div>
+        </div>
+        <div id="favorites" class="mm-chips"></div>
+      </div>
+
+      <!-- Step 2: services -->
+      <div class="mm-step">
+        <h3>2 · Pick the streaming services you have</h3>
+        <div id="providers" class="mm-chips mm-providers"></div>
+      </div>
+
+      <!-- Step 3: go -->
+      <div class="mm-step">
+        <button id="find-btn" class="mm-primary" disabled>Find movies for me</button>
+        <span id="find-hint" class="mm-note"></span>
+      </div>
+
+      <!-- Results -->
+      <div id="results-status" class="mm-status" aria-live="polite"></div>
+      <div id="results" class="mm-results"></div>
+    </section>
+
+  </main>
+
+  <script src="match.js?v=1"></script>
+</body>
+</html>
