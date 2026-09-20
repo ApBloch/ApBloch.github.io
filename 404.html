@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found | Aaron Bloch</title>
+  <meta name="description" content="The page you were looking for does not exist." />
+  <meta property="og:title" content="Page not found | Aaron Bloch" />
+  <meta property="og:description" content="The page you were looking for does not exist." />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+  <div class="app" style="grid-template-rows: minmax(0, 1fr) auto; grid-template-areas: 'editor' 'status'; grid-template-columns: minmax(0, 1fr);">
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">404</h2>
+      <div class="pane__body">
+      <h1>Page not found</h1>
+      <p class="lede">That page doesn't exist. <a href="/">Back to the home page</a>.</p>
+    </div>
+    </main>
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">404</span>
+      <span class="status__spacer"></span>
+      <span class="status__seg">Built with plain HTML and CSS.</span>
+    </footer>
+  </div>
+</body>
+</html>
