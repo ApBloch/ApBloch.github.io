@@ -21,28 +21,104 @@
       <h2 class="pane__title">Explorer</h2>
       <div class="pane__body">
       <div class="tree">
-        <p class="tree__root">ApBloch.github.io/</p>
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
         <ul>
-          <li><a class="tree__item" href="../">index.html</a></li>
+          <li><a class="tree__item tree__file" href="../">index.html</a></li>
           <li>
             <details open>
-            <summary class="tree__item tree__dir"><a href="./" aria-current="page">projects/</a></summary>
+            <summary class="tree__item tree__dir"><a href="./" aria-current="page">projects</a></summary>
             <ul>
-              <li><span class="tree__item is-missing" title="Not written yet">console-build/ <span class="tree__flag" aria-label="not written yet">?</span></span></li>
-              <li><span class="tree__item is-missing" title="Not written yet">battery-pack/ <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+              <li>
+                <details>
+                <summary class="tree__item tree__dir"><a href="custom-console-build/">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="custom-console-build/custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details>
+                    <summary class="tree__item tree__dir"><a href="custom-console-build/controller/">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="custom-console-build/controller/hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="custom-console-build/controller/hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="custom-console-build/controller/prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="custom-console-build/controller/prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="custom-console-build/controller/testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="custom-console-build/controller/testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="custom-console-build/controller/pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="custom-console-build/controller/pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="custom-console-build/controller/pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="custom-console-build/controller/pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="custom-console-build/controller/pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="custom-console-build/controller/pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
             </ul>
             </details>
           </li>
           <li>
             <details open>
-            <summary class="tree__item tree__dir">tools/</summary>
+            <summary class="tree__item tree__dir">tools</summary>
             <ul>
-              <li><a class="tree__item" href="../tools/prog-calc/">prog-calc/</a></li>
+              <li><a class="tree__item" href="../tools/prog-calc/">prog-calc</a></li>
             </ul>
             </details>
           </li>
-          <li><span class="tree__item is-missing" title="Not written yet">about/ <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
         </ul>
+        <!-- explorer:end -->
       </div>
       </div>
     </nav>

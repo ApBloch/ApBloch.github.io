@@ -100,7 +100,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .app {
     height: 100vh;
     min-height: 0;
-    grid-template-columns: 17rem minmax(0, 1fr);
+    grid-template-columns: 18rem minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) auto auto;
     grid-template-areas:
       "explorer editor"
@@ -115,14 +115,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---- Explorer tree ---- */
 .tree__root { color: var(--foam); font-weight: 700; }
 
-.tree ul { margin-left: 0.6rem; }
-.tree li { position: relative; padding-left: 1.1rem; }
+.tree ul { margin-left: 0.3rem; }
+.tree li { position: relative; padding-left: 0.85rem; }
 .tree li::before {            /* horizontal connector */
   content: "";
   position: absolute;
   left: 0;
   top: 0.85em;
-  width: 0.8rem;
+  width: 0.6rem;
   border-top: 1px solid var(--muted);
 }
 .tree li::after {             /* vertical connector */
@@ -135,7 +135,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .tree li:last-child::after { bottom: auto; height: 0.85em; }
 
-.tree__item { display: block; padding: 0 0.4rem; border-radius: 3px; color: var(--text); text-decoration: none; }
+.tree__item { overflow-wrap: anywhere; display: block; padding: 0 0.4rem; border-radius: 3px; color: var(--text); text-decoration: none; }
 .tree__dir { color: var(--foam); }
 
 /* Collapsible folders: native <details>, so they work without JS */
@@ -156,11 +156,21 @@ a.tree__item:hover { background: var(--overlay); color: var(--text); }
 .tree__flag { float: right; color: var(--muted); }
 
 /* ---- Editor pane content ---- */
-.editor h1 { font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--text); }
-.lede { color: var(--subtle); max-width: 42rem; margin-bottom: 2rem; }
+.editor { color: var(--text); }   /* body text: lavender */
+.editor h1 { font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--rose); }   /* headers: "function" */
+.lede { margin-bottom: 2rem; }
 
-.editor h2:not(.pane__title) { font-size: 1rem; color: var(--iris); margin: 2rem 0 1rem; }
-.editor h2:not(.pane__title)::before { content: "# "; color: var(--muted); }
+/* Section headings: a full-width bar, so each section reads as its own block */
+.editor h2:not(.pane__title) {
+  font-size: 1rem;
+  color: var(--rose);
+  margin: 2rem 0 1rem;
+  padding: 0.5rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--overlay);
+  border-left: 3px solid var(--rose);
+  border-radius: 6px;
+}
 
 /* Project cards: floating windows with the title in the border */
 .cards { display: grid; gap: 1.5rem 1rem; }
@@ -210,8 +220,8 @@ a.tree__item:hover { background: var(--overlay); color: var(--text); }
 
 /* Placeholders: must be impossible to mistake for finished copy */
 .todo {
-  color: var(--gold);
-  border: 1px dashed var(--gold);
+  color: var(--love);
+  border: 1px dashed var(--love);
   border-radius: 3px;
   padding: 0 0.35em;
 }
@@ -228,10 +238,23 @@ figure.placeholder {
 img { max-width: 100%; height: auto; }
 
 /* Tables scroll inside their own box so the page never scrolls sideways */
-.table-wrap { overflow-x: auto; }
+.table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+  border: 1px solid var(--overlay);   /* frame around the table */
+  border-radius: 6px;
+}
+/* the frame already closes the bottom edge */
+.table-wrap tbody tr:last-child > *, .table-wrap table > tr:last-child > * { border-bottom: none; }
 table { border-collapse: collapse; width: 100%; }
-th, td { text-align: left; padding: 0.4rem 0.75rem; border-bottom: 1px solid var(--overlay); }
-th { color: var(--subtle); font-weight: 600; }
+th, td {
+  text-align: left;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--overlay);
+  border-right: 1px solid var(--overlay);     /* column separators */
+}
+th:last-child, td:last-child { border-right: none; }
+th { color: var(--love); font-weight: 600; }  /* column labels */
 
 pre {
   overflow-x: auto;
@@ -241,6 +264,38 @@ pre {
   padding: 1rem;
 }
 
+/* ---- Note content (pages generated from Trilium) ---- */
+/* Editor-style colour, added when the pages are generated */
+.content .key, .content .lead { color: var(--foam); }   /* label, and the first word of each sentence */   /* "Label:" at the start of a line, like a config key */
+.content .num { color: var(--gold); }   /* numbers with their units */
+
+/* Code blocks: Rose Pine token colours (keyword is pine, lightened a little to stay readable) */
+.tok-kw { color: #56a3c4; }
+.tok-type { color: var(--foam); }
+.tok-fn { color: var(--rose); }
+.tok-str, .tok-num { color: var(--gold); }
+.tok-pre, .tok-var { color: var(--iris); }
+.tok-com { color: var(--subtle); font-style: italic; }
+
+.content p { margin: 0 0 1rem; }
+.content ul, .content ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+.content ul { list-style: disc; }
+.content ol { list-style: decimal; }
+.content li { margin: 0.2rem 0; }
+.content h3, .content h4, .content h5, .content h6 { margin: 1.5rem 0 0.5rem; color: var(--rose); }
+.content h3 { font-size: 0.95rem; }
+.content code { background: var(--surface); border-radius: 3px; padding: 0.05em 0.35em; }
+.content pre code { background: none; padding: 0; }
+.content blockquote { margin: 0 0 1rem; padding-left: 1rem; border-left: 3px solid var(--overlay); color: var(--subtle); }
+.content figure { margin: 1.5rem 0; }
+.content figcaption { color: var(--subtle); font-size: 0.85rem; margin-top: 0.4rem; }
+.content figure.placeholder { border: 2px dashed var(--overlay); border-radius: 6px; padding: 1.5rem 1rem; text-align: center; color: var(--subtle); }
+.content figure.placeholder p { margin: 0 0 0.4rem; }
+/* Diagrams (SVG line art is usually dark on transparent, so give it a light panel) */
+.content img.diagram { display: block; max-width: 100%; height: auto; background: #faf4ed; padding: 1rem; border-radius: 6px; }
+.child-links { margin: 0 0 1rem; }
+.child-links li { margin: 0.25rem 0; }
+
 /* ---- Terminal ---- */
 .term__line { white-space: pre-wrap; }
 .term__prompt { color: var(--pine); }
@@ -249,7 +304,7 @@ pre {
 /* Interactive terminal (built by assets/js/terminal.js; hidden without JS) */
 .terminal:focus-within { border-color: var(--iris); }
 .term__row { display: flex; align-items: baseline; gap: 0.6ch; }
-.term__row .term__prompt { white-space: pre; }
+.term__row .term__prompt { white-space: pre-wrap; min-width: 0; overflow-wrap: anywhere; }
 .term__input {
   flex: 1 1 auto;
   min-width: 0;

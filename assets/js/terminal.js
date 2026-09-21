@@ -1,6 +1,9 @@
 /* Terminal for navigating the site. Progressive enhancement: the page works
    without it. It builds its file tree from the Explorer markup on the page,
-   so it can only ever list what the Explorer lists. */
+   so it can only ever list what the Explorer lists.
+
+   The terminal keeps its state (folder, history, output) while you move between
+   pages, in sessionStorage. That lasts until the tab is closed. */
 (function () {
   'use strict';
 
@@ -13,18 +16,18 @@
 
   function stripSlash(name) { return name.replace(/\/$/, ''); }
 
+  /* ---- File tree, read from the Explorer ---- */
   function parseList(ul) {
     return Array.prototype.map.call(ul.children, function (li) {
       var item = li.querySelector(':scope > .tree__item, :scope > details > .tree__item');
       var clone = item.cloneNode(true);
       var flag = clone.querySelector('.tree__flag');
       if (flag) flag.remove();
-      var name = clone.textContent.trim();
       var link = item.tagName === 'A' ? item : item.querySelector('a');
       var sub = li.querySelector(':scope > ul, :scope > details > ul');
       return {
-        name: name,
-        dir: name.charAt(name.length - 1) === '/',
+        name: clone.textContent.trim(),
+        dir: !item.classList.contains('tree__file'),
         href: link ? link.href : null,
         current: !!(link && link.getAttribute('aria-current') === 'page'),
         missing: item.classList.contains('is-missing'),
@@ -47,11 +50,6 @@
     return null;
   }
 
-  /* Start in the folder of the page you're on */
-  var stack = [root];
-  var here0 = findCurrent(root, [root]);
-  if (here0) stack = here0[here0.length - 1].dir ? here0 : here0.slice(0, -1);
-
   function samePage(href) {
     var a = new URL(href);
     var strip = function (p) { return p.replace(/index\.html$/, ''); };
@@ -61,6 +59,65 @@
   function pathOf(s) {
     return '~' + s.slice(1).map(function (n) { return '/' + stripSlash(n.name); }).join('');
   }
+
+  /* Prompts show a shortened path so a deep page cannot push the layout sideways */
+  function promptPath(s) {
+    var names = s.slice(1).map(function (n) { return stripSlash(n.name); });
+    return names.length > 2 ? '~/…/' + names.slice(-2).join('/') : pathOf(s);
+  }
+
+  /* ---- Saved state ---- */
+  var STORE = 'siteTerminal';
+  var MAX_LINES = 200;
+  var MAX_HISTORY = 100;
+
+  function loadState() {
+    try {
+      var saved = JSON.parse(window.sessionStorage.getItem(STORE));
+      if (saved && typeof saved === 'object') return saved;
+    } catch (e) { /* storage unavailable or corrupt: start fresh */ }
+    return null;
+  }
+
+  var saved = loadState();
+  var state = {
+    cwd: saved && Array.isArray(saved.cwd) ? saved.cwd : null,
+    history: saved && Array.isArray(saved.history) ? saved.history : [],
+    lines: saved && Array.isArray(saved.lines) ? saved.lines : [],
+    refocus: !!(saved && saved.refocus)
+  };
+
+  function save() {
+    try { window.sessionStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* ignore */ }
+  }
+
+  /* Where the terminal starts: where it was left, otherwise the folder of this page */
+  function stackFromNames(names) {
+    var s = [root];
+    for (var i = 0; i < names.length; i++) {
+      var here = s[s.length - 1], next = null;
+      for (var j = 0; j < here.children.length; j++) {
+        var c = here.children[j];
+        if (c.dir && !c.missing && stripSlash(c.name) === names[i]) { next = c; break; }
+      }
+      if (!next) return null;              // the site changed since: fall back
+      s.push(next);
+    }
+    return s;
+  }
+
+  var stack = state.cwd ? stackFromNames(state.cwd) : null;
+  if (!stack) {
+    stack = [root];
+    var here0 = findCurrent(root, [root]);
+    if (here0) stack = here0[here0.length - 1].dir ? here0 : here0.slice(0, -1);
+  }
+
+  function rememberCwd() {
+    state.cwd = stack.slice(1).map(function (n) { return stripSlash(n.name); });
+    save();
+  }
+  rememberCwd();       /* the starting folder counts too: only typing may change it */
 
   /* ---- DOM ---- */
   var log = document.createElement('div');
@@ -91,22 +148,70 @@
   function renderPrompt() {
     prompt.innerHTML = '';
     var b = document.createElement('b');
-    b.textContent = pathOf(stack);
+    b.textContent = promptPath(stack);
     prompt.appendChild(b);
     prompt.appendChild(document.createTextNode(' $'));
   }
   renderPrompt();
 
-  function addLine(content, cls) {
+  function scrollDown() { body.scrollTop = body.scrollHeight; }
+
+  /* Output is kept as small records so it can be saved and redrawn on the next page:
+       {t:'text', x, c}            a line of text with an optional class
+       {t:'echo', p, x}            a command you typed, with its prompt
+       {t:'ls', e:[{n,h,d,m}]}     a listing: name, link, is-folder, not-written-yet */
+  function drawRecord(rec) {
     var p = document.createElement('p');
-    p.className = 'term__line' + (cls ? ' ' + cls : '');
-    if (typeof content === 'string') p.textContent = content;
-    else p.appendChild(content);
+    p.className = 'term__line' + (rec.c ? ' ' + rec.c : '');
+    if (rec.t === 'text') {
+      p.textContent = rec.x;
+    } else if (rec.t === 'echo') {
+      var pc = document.createElement('span');
+      pc.className = 'term__prompt';
+      pc.textContent = rec.p + ' $ ';
+      p.appendChild(pc);
+      p.appendChild(document.createTextNode(rec.x));
+    } else if (rec.t === 'ls') {
+      rec.e.forEach(function (c, i) {
+        if (i) p.appendChild(document.createTextNode('   '));
+        var el;
+        if (c.h && !c.m) {
+          el = document.createElement('a');
+          el.href = c.h;
+        } else {
+          el = document.createElement('span');
+          if (c.d) el.className = 'term__dir';
+        }
+        el.textContent = c.n;
+        p.appendChild(el);
+        if (c.m) {
+          var q = document.createElement('span');
+          q.className = 'term__dim';
+          q.textContent = ' ?';
+          p.appendChild(q);
+        }
+      });
+    }
     log.appendChild(p);
-    return p;
   }
 
-  function scrollDown() { body.scrollTop = body.scrollHeight; }
+  function addRecord(rec) {
+    state.lines.push(rec);
+    if (state.lines.length > MAX_LINES) state.lines.shift();
+    drawRecord(rec);
+    save();
+  }
+
+  function addText(text, cls) { addRecord({ t: 'text', x: text, c: cls || '' }); }
+
+  function clearScreen() {
+    state.lines = [];
+    log.textContent = '';
+    save();
+  }
+
+  state.lines.forEach(drawRecord);
+  scrollDown();
 
   /* ---- Commands ---- */
   function resolve(arg) {
@@ -137,43 +242,31 @@
     var s = stack;
     if (args[0]) {
       var r = resolve(args[0]);
-      if (r.error) { addLine('ls: ' + r.error, 'term__err'); return; }
+      if (r.error) { addText('ls: ' + r.error, 'term__err'); return; }
       s = r.stack;
     }
     var here = s[s.length - 1];
-    if (!here.children.length) { addLine('(empty)', 'term__dim'); return; }
-    var line = document.createElement('span');
-    here.children.forEach(function (c, i) {
-      if (i) line.appendChild(document.createTextNode('   '));
-      var el;
-      if (c.href && !c.missing) {
-        el = document.createElement('a');
-        el.href = c.href;
-      } else {
-        el = document.createElement('span');
-        if (c.dir) el.className = 'term__dir';
-      }
-      el.textContent = c.name;
-      line.appendChild(el);
-      if (c.missing) {
-        var q = document.createElement('span');
-        q.className = 'term__dim';
-        q.textContent = ' ?';
-        line.appendChild(q);
-      }
+    if (!here.children.length) { addText('(empty)', 'term__dim'); return; }
+    addRecord({
+      t: 'ls',
+      e: here.children.map(function (c) {
+        return { n: stripSlash(c.name) + (c.dir ? '/' : ''), h: c.href, d: c.dir, m: c.missing };
+      })
     });
-    addLine(line);
   }
 
   function cmdCd(args) {
     var target = args[0] || '~';
     var r = resolve(target);
-    if (r.error) { addLine('cd: ' + r.error, 'term__err'); return; }
+    if (r.error) { addText('cd: ' + r.error, 'term__err'); return; }
     stack = r.stack;
     renderPrompt();
+    rememberCwd();
     var here = stack[stack.length - 1];
     if (here.href && !samePage(here.href)) {
-      addLine('opening ' + pathOf(stack) + ' ...', 'term__dim');
+      addText('opening ' + pathOf(stack) + ' ...', 'term__dim');
+      state.refocus = true;                  // keep typing on the next page
+      save();
       window.location.assign(here.href);
     }
   }
@@ -186,17 +279,11 @@
       'help            show this list',
       'Tab             complete a command or folder name',
       'Esc             leave the terminal'
-    ].forEach(function (t) { addLine(t); });
+    ].forEach(function (t) { addText(t); });
   }
 
   function run(text) {
-    var echo = document.createElement('span');
-    var pc = document.createElement('span');
-    pc.className = 'term__prompt';
-    pc.textContent = pathOf(stack) + ' $ ';
-    echo.appendChild(pc);
-    echo.appendChild(document.createTextNode(text));
-    addLine(echo);
+    addRecord({ t: 'echo', p: promptPath(stack), x: text });
 
     var words = text.trim().split(/\s+/);
     var cmd = words[0];
@@ -206,8 +293,8 @@
     if (cmd === 'ls') cmdLs(args);
     else if (cmd === 'cd') cmdCd(args);
     else if (cmd === 'help') cmdHelp();
-    else if (cmd === 'clear') log.textContent = '';
-    else addLine(cmd + ': command not found', 'term__err');
+    else if (cmd === 'clear') clearScreen();
+    else addText(cmd + ': command not found', 'term__err');
   }
 
   /* ---- Tab completion ---- */
@@ -217,16 +304,6 @@
     var p = list[0];
     list.forEach(function (w) { while (w.indexOf(p) !== 0) p = p.slice(0, -1); });
     return p;
-  }
-
-  function echoInput() {
-    var echo = document.createElement('span');
-    var pc = document.createElement('span');
-    pc.className = 'term__prompt';
-    pc.textContent = pathOf(stack) + ' $ ';
-    echo.appendChild(pc);
-    echo.appendChild(document.createTextNode(input.value));
-    addLine(echo);
   }
 
   /* Returns true if it handled Tab; false lets Tab move focus as normal. */
@@ -270,34 +347,37 @@
     } else if (common.length > prefix.length) {
       input.value = before + common;
     } else {
-      echoInput();
-      addLine(candidates.join('   '), 'term__dim');
+      addRecord({ t: 'echo', p: promptPath(stack), x: input.value });
+      addText(candidates.join('   '), 'term__dim');
       scrollDown();
     }
     return true;
   }
 
   /* ---- Input ---- */
-  var history = [];
-  var hIndex = 0;
+  var hIndex = state.history.length;
 
   input.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       var text = input.value;
-      if (text.trim()) { history.push(text); }
-      hIndex = history.length;
+      if (text.trim()) {
+        state.history.push(text);
+        if (state.history.length > MAX_HISTORY) state.history.shift();
+        save();
+      }
+      hIndex = state.history.length;
       input.value = '';
       run(text);
       scrollDown();
     } else if (e.key === 'ArrowUp') {
-      if (hIndex > 0) { hIndex--; input.value = history[hIndex]; }
+      if (hIndex > 0) { hIndex--; input.value = state.history[hIndex]; }
       e.preventDefault();
     } else if (e.key === 'ArrowDown') {
-      if (hIndex < history.length - 1) { hIndex++; input.value = history[hIndex]; }
-      else { hIndex = history.length; input.value = ''; }
+      if (hIndex < state.history.length - 1) { hIndex++; input.value = state.history[hIndex]; }
+      else { hIndex = state.history.length; input.value = ''; }
       e.preventDefault();
     } else if (e.key === 'l' && e.ctrlKey) {
-      log.textContent = '';
+      clearScreen();
       e.preventDefault();
     } else if (e.key === 'Tab' && !e.shiftKey) {
       if (complete()) e.preventDefault();
@@ -312,10 +392,20 @@
     input.focus();
   });
 
-  input.addEventListener('focus', function () {
-    if (modeEl) { modeEl.textContent = 'TERMINAL'; modeEl.setAttribute('data-mode', 'terminal'); }
-  });
-  input.addEventListener('blur', function () {
-    if (modeEl) { modeEl.textContent = 'NORMAL'; modeEl.removeAttribute('data-mode'); }
-  });
+  function setMode(terminal) {
+    if (!modeEl) return;
+    modeEl.textContent = terminal ? 'TERMINAL' : 'NORMAL';
+    if (terminal) modeEl.setAttribute('data-mode', 'terminal');
+    else modeEl.removeAttribute('data-mode');
+  }
+  input.addEventListener('focus', function () { setMode(true); });
+  input.addEventListener('blur', function () { setMode(false); });
+
+  /* If a cd brought us to this page, carry on typing */
+  if (state.refocus) {
+    state.refocus = false;
+    save();
+    input.focus();
+    setMode(document.activeElement === input);
+  }
 })();
