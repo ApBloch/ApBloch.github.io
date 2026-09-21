@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parts List | Aaron Bloch</title>
+  <meta name="description" content="Passive package standard: 0603 for all resistors and capacitors, board-wide. Chosen over 0402 (harder to hand-solder) given the board has generous space..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Parts List | Aaron Bloch" />
+  <meta property="og:description" content="Passive package standard: 0603 for all resistors and capacitors, board-wide. Chosen over 0402 (harder to hand-solder) given the board has generous space..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/pcb-design/parts-list/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details open>
+                            <summary class="tree__item tree__dir"><a href="./" aria-current="page">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/pcb-design/parts-list.md</h2>
+      <div class="pane__body">
+
+      <h1>Parts List</h1>
+      <div class="content">
+<h2>Parts List</h2>
+<p><em><strong><span class="lead">Passive package standard</span>: <span class="num">0603</span></strong> for all resistors and capacitors, board-wide. <span class="lead">Chosen over</span> <span class="num">0402</span> (harder to hand-solder) given the board has generous space to work with and hand-rework/hand-soldering is expected during bring-up.</em></p>
+<div class="table-wrap">
+<table><tbody><tr><td>Part</td><td>Use</td><td>Datasheet</td><td>Price</td><td>JLCPCB Link</td></tr>
+<tr><td>ESP32 S3 WROOM</td><td>MCU/BLE</td><td><a href="https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.html">link</a></td><td><span class="num">5.21</span></td><td>NA</td></tr>
+<tr><td>LSM6DSLTR</td><td>IMU</td><td><a href="./">LSM6DSLTR_Datasheet.pdf</a></td><td><span class="num">2.72</span></td><td><a href="https://jlcpcb.com/partdetail/STMicroelectronics-LSM6DSLTR/C126672">link</a></td></tr>
+<tr><td>NCR18650GA</td><td>Battery</td><td><a href="https://www.18650batterystore.com/products/panasonic-ncr18650ga-3450mah-battery-protected-button-top">link</a></td><td><span class="num">10.99</span></td><td>NA</td></tr>
+<tr><td>74HC14</td><td>Schmitt Trigger (debounce)</td><td><a href="https://www.lcsc.com/datasheet/C5605.pdf">link</a></td><td><span class="num">0.12</span></td><td><a href="https://jlcpcb.com/partdetail/Nexperia-74HC14D653/C5605">link</a></td></tr>
+<tr><td>TPS63031DSKR</td><td>Buck Boost Voltage Regulator</td><td><a href="https://www.ti.com/cn/lit/ds/symlink/tps63031.pdf">link</a></td><td><span class="num">1.26</span></td><td><a href="https://jlcpcb.com/partdetail/TexasInstruments-TPS63031DSKR/C15516">link</a></td></tr>
+<tr><td>MCP73831T-<span class="num">2DCI/OT</span></td><td>Charge IC</td><td><a href="https://www.lcsc.com/datasheet/C625597.pdf">link</a></td><td><span class="num">1.57</span></td><td><a href="https://jlcpcb.com/partdetail/MicrochipTech-MCP73831T_2DCIOT/C625597">link</a></td></tr>
+<tr><td>RVT1A471M0607</td><td>Bulk Cap</td><td>NA</td><td><span class="num">0.04</span></td><td><a href="https://jlcpcb.com/partdetail/HonorElec-RVT1A471M0607/C87858">link</a></td></tr>
+<tr><td><span class="num">1043</span></td><td>Battery Holder</td><td>NA</td><td><span class="num">2.99</span></td><td>link</td></tr>
+<tr><td><span class="num">1825910</span>-<span class="num">3</span></td><td>Push Button</td><td><a href="https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=8-1773450-9_SECTION_C_TACTILE_SWITCHES&amp;DocType=Data%20Sheet&amp;DocLang=English&amp;DocFormat=pdf&amp;PartCntxt=1825910-3">link</a></td><td><span class="num">0.17</span></td><td><a href="https://www.digikey.com/en/products/detail/te-connectivity-alcoswitch-switches/1825910-3/2400476">link</a></td></tr>
+<tr><td>MC-404L68-Z10</td><td>USB for Data and Charging</td><td>NA</td><td><span class="num">0.07</span></td><td><a href="https://jlcpcb.com/partdetail/HanboElectronic-MC_404L68Z10/C47326498">link</a></td></tr>
+<tr><td>PESD5V0L1BA</td><td>ESD Protection — USB D+/D- (x2, one per line)</td><td>NA</td><td><span class="num">0.03</span></td><td>NA</td></tr>
+<tr><td>P6SMB6.8CA</td><td>ESD Protection — USB VBUS</td><td>NA</td><td><span class="num">0.61</span></td><td><a href="https://jlcpcb.com/partdetail/Brightking-P6SMB6_8CATR13/C78395">link</a></td></tr>
+<tr><td>SWT0210-<span class="num">045026GSA</span></td><td>Push Button</td><td><a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8937/swt0210-spec.pdf">link</a></td><td><span class="num">0.18</span></td><td><a href="https://www.digikey.com/en/products/detail/gct/SWT0210-045026GSA/26753070">link</a></td></tr>
+<tr><td>AOS AO3401A</td><td>Power Mosf</td><td><a href="https://www.lcsc.com/datasheet/C15127.pdf">link</a></td><td><span class="num">0.48</span></td><td><a href="https://www.lcsc.com/product-detail/C15127.html">link</a></td></tr>
+<tr><td>Nexperia BC817-<span class="num">40,215</span></td><td>Power BJT</td><td><a href="https://www.lcsc.com/datasheet/C52801.pdf">link</a></td><td><span class="num">0.0159</span></td><td><a href="https://www.lcsc.com/product-detail/C52801.html">link</a></td></tr>
+<tr><td>BH-<span class="num">18650</span>-W</td><td>Battery Holder</td><td><a href="https://www.memoryprotectiondevices.com/datasheets/BH-18650-W/BH-18650-W-datasheet.pdf">link</a></td><td><span class="num">3.64</span></td><td><a href="https://www.digikey.com/en/products/detail/mpd-memory-protection-devices/BH-18650-W/3029217">link</a></td></tr>
+</tbody>
+</table>
+</div>
+<h2>Pages</h2>
+<ul class="child-links">
+<li><a href="battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">Battery Holder Selection — Keystone 1043 (rejected) → MPD BH-18650-W</a></li>
+</ul>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/pcb-design/parts-list.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

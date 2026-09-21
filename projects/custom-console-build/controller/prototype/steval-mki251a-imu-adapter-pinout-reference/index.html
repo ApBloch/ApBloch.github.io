@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STEVAL-MKI251A (IMU Adapter) Pinout Reference | Aaron Bloch</title>
+  <meta name="description" content="Reference for the ST STEVAL-MKI251A adapter board a plain breakout that pins the bare LSM6DSV320X chip onto a standard DIL24 (24-pin DIP) socket. No onb..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="STEVAL-MKI251A (IMU Adapter) Pinout Reference | Aaron Bloch" />
+  <meta property="og:description" content="Reference for the ST STEVAL-MKI251A adapter board a plain breakout that pins the bare LSM6DSV320X chip onto a standard DIL24 (24-pin DIP) socket. No onb..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/prototype/steval-mki251a-imu-adapter-pinout-reference/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/prototype/steval-mki251a-imu-adapter-pinout-reference.md</h2>
+      <div class="pane__body">
+
+      <h1>STEVAL-MKI251A (IMU Adapter) Pinout Reference</h1>
+      <div class="content">
+<p><em><span class="lead">Reference for the</span> ST STEVAL-MKI251A adapter board a plain breakout that pins the bare LSM6DSV320X chip onto a standard DIL24 (<span class="num">24</span>-pin DIP) socket. <span class="lead">No onboard MCU</span>, no voltage regulation beyond decoupling caps you supply VDD/VDDIO directly. <span class="lead">Pinout confirmed from</span> ST's official data brief (schematic + board photo).</em></p>
+<h2>Decoupling (already on board, no action needed)</h2>
+<ul><li><span class="num">100nF</span> between VDD and GND</li>
+<li><span class="num">100nF</span> between VDDIO and GND</li>
+<li><span class="num">10uF</span> between VDD and GND</li>
+</ul>
+<h2>Pins You'll Actually Use</h2>
+<div class="table-wrap">
+<table><thead><tr><th>DIL Pin #</th><th>Signal</th><th>Function</th></tr>
+</thead>
+<tbody><tr><td><span class="num">1</span></td><td>VDD</td><td>Main supply voltage</td></tr>
+<tr><td><span class="num">2</span></td><td>VDDIO</td><td>I/O supply voltage (can be same as VDD, or lower for logic-level matching)</td></tr>
+<tr><td><span class="num">13</span></td><td>GND</td><td>Ground</td></tr>
+<tr><td><span class="num">14</span></td><td>INT1</td><td>Interrupt <span class="num">1</span> (configurable \u2014 e.g. data-ready, motion detection)</td></tr>
+<tr><td><span class="num">15</span></td><td>INT2</td><td>Interrupt <span class="num">2</span> (configurable)</td></tr>
+<tr><td><span class="num">19</span></td><td>CS</td><td>Chip select. Tie HIGH for I2C mode. Use as SPI chip-select if wiring SPI.</td></tr>
+<tr><td><span class="num">20</span></td><td>SCL</td><td>I2C clock, or SPI SCLK</td></tr>
+<tr><td><span class="num">21</span></td><td>SDA</td><td>I2C data, or SPI MOSI</td></tr>
+<tr><td><span class="num">22</span></td><td>SDO</td><td>SPI MISO, or I2C address-select bit (ties to GND or VDDIO to set the I2C address)</td></tr>
+</tbody>
+</table>
+</div>
+<h2>Auxiliary/OIS Interface \u2014 Not Needed for This Project</h2>
+<p><span class="lead">These pins are</span> a secondary SPI interface (OIS \u2014 optical image stabilization pass-through) for a different use case. <span class="lead">Leave unconnected</span>:</p>
+<div class="table-wrap">
+<table><thead><tr><th>DIL Pin #</th><th>Signal</th></tr>
+</thead>
+<tbody><tr><td><span class="num">3</span></td><td>OCS (aux chip select)</td></tr>
+<tr><td><span class="num">4</span></td><td>SCX (aux clock)</td></tr>
+<tr><td><span class="num">5</span></td><td>SDX (aux data)</td></tr>
+<tr><td><span class="num">6</span></td><td>OSDO (aux data out)</td></tr>
+</tbody>
+</table>
+</div>
+<h2>Wiring Notes</h2>
+<ul><li><strong><span class="lead">For I2C</span>:</strong> connect VDD, VDDIO, GND, SCL, SDA. <span class="lead">Tie CS to</span> VDDIO (HIGH) to select I2C mode. <span class="lead">SDO sets the</span> I2C address bit tie to GND or VDDIO depending on which address you want.</li>
+<li><strong><span class="lead">For SPI</span>:</strong> connect VDD, VDDIO, GND, SCL (SCLK), SDA (MOSI), SDO (MISO), CS (chip select, toggled by the ESP32).</li>
+<li><span class="lead">INT1/INT2 are optional</span> but useful can wire to ESP32 GPIO to get interrupt-driven reads instead of polling, worth considering once basic communication is confirmed working.</li>
+</ul>
+<h2>Source</h2>
+<p><a href="https://www.st.com/resource/en/data_brief/steval-mki251a.pdf">STEVAL-MKI251A Data Brief (PDF)</a></p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/prototype/steval-mki251a-imu-adapter-pinout-reference.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

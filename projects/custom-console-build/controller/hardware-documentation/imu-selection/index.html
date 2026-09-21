@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IMU Selection | Aaron Bloch</title>
+  <meta name="description" content="Pick: LSM6DSLTR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="IMU Selection | Aaron Bloch" />
+  <meta property="og:description" content="Pick: LSM6DSLTR" />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/hardware-documentation/imu-selection/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">imu-selection</a></li>
+                          <li><a class="tree__item" href="../mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/hardware-documentation/imu-selection.md</h2>
+      <div class="pane__body">
+
+      <h1>IMU Selection</h1>
+      <div class="content">
+<h2>Candidates Researched</h2>
+<div class="table-wrap">
+<table><thead><tr><th>Chip name</th><th>Accel + Gyro?</th><th>Accel range (±g)</th><th>Gyro Range (±dps)</th><th>Output data rate</th><th>Interface</th><th>Power draw</th><th>Package</th><th>Cost</th><th>Breakout for prototyping?</th></tr>
+</thead>
+<tbody><tr><td><a href="https://jlcpcb.com/partdetail/STMicroelectronics-LSM6DSV320XTR/C26633007"><strong>LSM6DSV320X</strong></a><br><a href="https://www.st.com/resource/en/datasheet/lsm6dsv320x.pdf">Datasheet</a></td><td>Both / Full IMU</td><td><span class="num">320</span></td><td><span class="num">4000</span></td><td><span class="num">960</span> Hz</td><td>I2C and SPI</td><td>not sure</td><td>LGA-<span class="num">14L</span></td><td>$<span class="num">10</span></td><td>Yes (have one)</td></tr>
+<tr><td><a href="https://jlcpcb.com/partdetail/STMicroelectronics-LSM6DSLTR/C126672"><strong>LSM6DSLTR</strong></a></td><td>IMU</td><td><span class="num">16</span></td><td><span class="num">2000</span></td><td><span class="num">6.66</span> kHz</td><td>SPI or I2C</td><td><span class="num">0.65mA</span></td><td>LGA-<span class="num">14L</span></td><td>$<span class="num">2.71</span></td><td>No</td></tr>
+<tr><td><a href="https://jlcpcb.com/partdetail/BoschSensortec-BNO055/C93216">BNO055</a></td><td>IMU</td><td><span class="num">16</span></td><td><span class="num">2000</span></td><td><span class="num">100</span> Hz</td><td>I2C, UART</td><td><span class="num">12.3</span> mA</td><td>LGA-<span class="num">28</span></td><td>$<span class="num">9.29</span></td><td>Yes</td></tr>
+<tr><td><a href="https://jlcpcb.com/partdetail/STMicroelectronics-LSM6DSO32XTR/C3663738">LSM6DSO32XTR</a></td><td>IMU</td><td><span class="num">32</span></td><td><span class="num">2000</span></td><td><span class="num">6.664</span> kHz</td><td>I2C, SPI</td><td><span class="num">0.55</span> mA</td><td>LGA-<span class="num">14L</span></td><td>$<span class="num">5.52</span></td><td>No</td></tr>
+</tbody>
+</table>
+</div>
+<h2>Decision</h2>
+<p><strong><span class="lead">Pick</span>: LSM6DSLTR</strong></p>
+<p><span class="lead">LSM6DSLTR is the</span> best option for the final build. <span class="lead">The LSM6DSV320X is</span> a high-end/fancy chip with good features, but for this application the LSM6DSLTR is a good middle ground — cheap, readily available, and made by ST so the documentation is solid.</p>
+<p><span class="key">Plan:</span> prototype and do initial testing with the LSM6DSV320X (already owned, used before). <span class="lead">Use its wide</span> ±<span class="num">320g</span> range to measure real peak acceleration across a range of throws (soft putt through hard drive). <span class="lead">Confirm the LSM6DSLTR's</span> ±<span class="num">16g</span> range isn't clipped before locking it into the final board.</p>
+<p><strong><span class="lead">Fallback</span>: LSM6DSO32XTR</strong> — same LGA-<span class="num">14L</span> footprint as the LSM6DSLTR, so no layout rework needed if the ±<span class="num">16g</span> range proves insufficient. <span class="lead">Note</span>: lower stock availability than the LSM6DSLTR — re-check stock before committing if this becomes the pick.</p>
+
+<hr>
+
+<h2>✅ VALIDATED — Real swing data confirms ±16g (2026-08-11)</h2>
+
+<p><span class="lead">Breadboard testing with</span> the LSM6DSV320X captured real peak acceleration across a full range of throws (see <a href="../../testing/swing-plots/">Swing Plots</a> and the <a href="../../testing/worksheet-breadboard-testing-log/">Breadboard Testing Log</a>, section <span class="num">2</span>):</p>
+
+<div class="table-wrap">
+<table><thead><tr><th>Throw type</th><th>Peak accel (g)</th></tr>
+</thead>
+<tbody><tr><td>Gentle putt</td><td><span class="num">1.85</span></td></tr>
+<tr><td>Medium throw</td><td><span class="num">6</span></td></tr>
+<tr><td>Hard drive</td><td><span class="num">15</span></td></tr>
+<tr><td>Hardest manageable</td><td><span class="num">28</span> (required an awkward, unnatural jerking stop motion to reach — not representative of a real throw)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong><span class="lead">Conclusion</span>: ±<span class="num">16g</span> is confirmed the right choice, not just a reasonable guess.</strong> <span class="lead">A real hard</span> drive peaks around <span class="num">15g</span>, right at the edge of ±<span class="num">16g</span> but not clipping. <span class="lead">Going to</span> ±<span class="num">32g</span> (the LSM6DSO32XTR fallback) would only be trading away resolution across the actual range of real throws to cover an edge case (<span class="num">28g</span>) that only occurs from an unnatural, non-gameplay motion. <strong><span class="lead">LSM6DSO32XTR fallback plan</span> is no longer needed</strong> — shelving it unless something changes (e.g. a different game mechanic with more violent motion is added later).</p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/hardware-documentation/imu-selection.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

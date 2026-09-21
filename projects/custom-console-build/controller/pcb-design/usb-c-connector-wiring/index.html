@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USB-C Connector Wiring | Aaron Bloch</title>
+  <meta name="description" content="Wiring guide for the Hanbo MC-404L68-Z10 (8-pin, right-angle SMD) — confirmed pinout: GND, VBUS, CC1, DP1, DN1, CC2, VBUS, GND. USB charging input + nat..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="USB-C Connector Wiring | Aaron Bloch" />
+  <meta property="og:description" content="Wiring guide for the Hanbo MC-404L68-Z10 (8-pin, right-angle SMD) — confirmed pinout: GND, VBUS, CC1, DP1, DN1, CC2, VBUS, GND. USB charging input + nat..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/pcb-design/usb-c-connector-wiring/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/pcb-design/usb-c-connector-wiring.md</h2>
+      <div class="pane__body">
+
+      <h1>USB-C Connector Wiring</h1>
+      <div class="content">
+<p><span class="lead">Wiring guide for</span> the Hanbo MC-404L68-Z10 (<span class="num">8</span>-pin, right-angle SMD) — confirmed pinout: GND, VBUS, CC1, DP1, DN1, CC2, VBUS, GND. <span class="lead">USB charging input</span> + native USB <span class="num">2.0</span> to the ESP32-S3.</p>
+<h3>Pin Connections</h3>
+<div class="table-wrap">
+<table><thead><tr><th>Connector Pin</th><th>Goes To</th><th>Purpose</th></tr>
+</thead>
+<tbody><tr><td>VBUS (both pins, tie together)</td><td>MCP73831 VDD (charge IC input)</td><td>USB power feeds the charge IC only — not the regulator/ESP32 directly. The board always runs off the battery via the TPS63031, whether or not USB is plugged in. MCP73831 charges the battery in parallel with whatever the device is drawing.</td></tr>
+<tr><td>GND (both pins, tie together)</td><td>Common ground</td><td> </td></tr>
+<tr><td>DP1 (D+)</td><td>ESP32-S3-WROOM GPIO20 (native USB D+)</td><td>Direct connection — ESP32-S3's native USB needs no external UART bridge chip</td></tr>
+<tr><td>DN1 (D-)</td><td>ESP32-S3-WROOM GPIO19 (native USB D-)</td><td>Direct connection</td></tr>
+<tr><td>CC1</td><td><span class="num">5.1kΩ</span> resistor to GND</td><td>Required — signals to the USB-C host that this is a UFP (device) requesting default USB power. Without this, some hosts won't supply power at all.</td></tr>
+<tr><td>CC2</td><td><span class="num">5.1kΩ</span> resistor to GND</td><td>Same as CC1 — both CC pins need their own independent pull-down, not shared.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Power Budget Note</h3>
+<p><span class="lead">Default USB power</span> (no further negotiation beyond the CC pull-downs) is typically <span class="num">500mA</span>–<span class="num">900mA</span> depending on the host/adapter. <span class="lead">Charging at the</span> planned <span class="num">500mA</span> (MCP73831, <span class="num">2kΩ</span> R_PROG) plus the device's own ~<span class="num">73mA</span> draw while charging is close to but should fit within that default budget on most modern USB-C sources. <span class="lead">No need for</span> active power negotiation (no ESP32 GPIO connection to CC pins) since the fixed pull-down approach is sufficient here.</p>
+<h3>Recommended additions</h3>
+<ul><li><strong><span class="lead">ESD protection</span></strong> on D+/D-/VBUS — a small low-capacitance USB ESD diode array chip, placed right at the connector. <span class="lead">Worth adding since</span> this port gets plugged/unplugged repeatedly on a handheld device.</li>
+<li><strong><span class="lead">Local decoupling on</span> VBUS</strong> — a small ceramic cap (<span class="num">1</span>–<span class="num">10µF</span>) right at the connector, separate from the big <span class="num">470µF</span> bulk cap elsewhere in the power path (that one serves the battery node, not USB input directly).</li>
+</ul>
+<h3>Part Notes</h3>
+<p><span class="lead">Hanbo MC-404L68-Z10</span>, JLCPCB C47326498. <span class="num">8</span>-pin, right-angle SMD, <span class="num">3A</span>/<span class="num">5V</span> rated, <span class="num">10,000</span> mating cycles. <span class="lead">Dual VBUS/GND pins</span> tie together for better current handling — not separate nets. <span class="lead">Pinout confirmed via</span> JLCPCB's EasyEDA schematic symbol viewer, not assumed from the part name/description (a connector considered earlier, DEALON USB-TYPE-C-<span class="num">009</span>, turned out to be power-only with no data pins despite looking similar on paper — worth always confirming the real pinout before committing).</p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/pcb-design/usb-c-connector-wiring.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

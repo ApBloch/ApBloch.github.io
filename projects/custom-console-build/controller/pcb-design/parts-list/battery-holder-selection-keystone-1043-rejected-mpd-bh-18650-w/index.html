@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Battery Holder Selection — Keystone 1043 (rejected) → MPD BH-18650-W | Aaron Bloch</title>
+  <meta name="description" content="Decision write-up and mistake log. The first battery holder I ordered did not fit the battery this project uses. This note records why, what I changed,..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Battery Holder Selection — Keystone 1043 (rejected) → MPD BH-18650-W | Aaron Bloch" />
+  <meta property="og:description" content="Decision write-up and mistake log. The first battery holder I ordered did not fit the battery this project uses. This note records why, what I changed,..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/" />
+  <link rel="stylesheet" href="../../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../../">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details open>
+                            <summary class="tree__item tree__dir"><a href="../">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="./" aria-current="page">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w.md</h2>
+      <div class="pane__body">
+
+      <h1>Battery Holder Selection — Keystone 1043 (rejected) → MPD BH-18650-W</h1>
+      <div class="content">
+<p><em><span class="lead">Decision write-up and</span> mistake log. <span class="lead">The first battery</span> holder I ordered did not fit the battery this project uses. <span class="lead">This note records</span> why, what I changed, and how I verified the replacement before buying it.</em></p>
+<h2>Summary</h2>
+<ul><li><strong><span class="lead">Problem</span>:</strong> The Keystone <span class="num">1043</span> (a generic single-cell <span class="num">18650</span> holder) did not fit the Panasonic NCR18650GA <em>protected</em> cell used in this build.</li>
+<li><strong><span class="lead">Cause</span>:</strong> The protected version of the cell has a protection circuit built into its end, which makes it slightly longer than an unprotected <span class="num">18650</span>. "<span class="num">18650</span>" describes the cell diameter and length class, but it does not guarantee that a holder fits a protected cell.</li>
+<li><strong><span class="lead">Fix</span>:</strong> Switched to the MPD BH-<span class="num">18650</span>-W, a holder that the manufacturer specifically designs for cells with built-in protection circuits.</li>
+<li><strong><span class="lead">Verification this time</span>:</strong> Before ordering the replacement, I downloaded the manufacturer's <span class="num">3D</span> model and checked it against the physical battery in hand.</li>
+<li><strong><span class="lead">Cost of the</span> mistake:</strong> One re-order (see "What it cost" below).</li>
+</ul>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

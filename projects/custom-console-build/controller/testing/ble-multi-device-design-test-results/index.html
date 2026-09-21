@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLE Multi-Device Design &amp; Test Results | Aaron Bloch</title>
+  <meta name="description" content="Design reference for the BLE link between controller boards and the console, plus real measured results from a live 4-peripheral→1-central test. Superse..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BLE Multi-Device Design &amp; Test Results | Aaron Bloch" />
+  <meta property="og:description" content="Design reference for the BLE link between controller boards and the console, plus real measured results from a live 4-peripheral→1-central test. Superse..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/testing/ble-multi-device-design-test-results/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="./" aria-current="page">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/testing/ble-multi-device-design-test-results.md</h2>
+      <div class="pane__body">
+
+      <h1>BLE Multi-Device Design &amp; Test Results</h1>
+      <div class="content">
+<p><span class="lead">Design reference for</span> the BLE link between controller boards and the console, plus real measured results from a live <span class="num">4</span>-peripheral→<span class="num">1</span>-central test. <span class="lead">Supersedes the investigation</span> trail in <em>BLE Data Rate &amp; Throughput Findings</em> (that page documents how we got here; this page documents where we landed).</p>
+<h2>Topology</h2>
+<p><span class="key">Star topology matching the final product:</span> up to <span class="num">4</span> BLE <strong>peripherals</strong> (controllers), each maintaining exactly <span class="num">1</span> connection, to a single BLE <strong>central</strong> (console/receiver). <span class="lead">This was chosen</span> specifically because NimBLE supports multi-connection central natively.</p>
+<h2>Wire packet format (27 bytes, packed)</h2>
+<pre><code><span class="tok-kw">typedef</span> <span class="tok-kw">struct</span> <span class="tok-fn">__attribute__</span>((packed)) {
+    <span class="tok-type">uint16_t</span> buttons;       <span class="tok-com">// bitmask (2B)</span>
+    <span class="tok-type">int16_t</span>  ax, ay, az;    <span class="tok-com">// accel, raw register counts, +-2g FS (6B)</span>
+    <span class="tok-type">int16_t</span>  gx, gy, gz;    <span class="tok-com">// gyro, raw register counts, +-2000dps FS (6B)</span>
+    <span class="tok-type">uint16_t</span> seq;           <span class="tok-com">// sequence number, drop detection (2B)</span>
+    <span class="tok-type">uint8_t</span>  reserved[<span class="tok-num">11</span>];  <span class="tok-com">// unused, zeroed</span>
+} <span class="tok-type">ble_imu_packet_t</span>;  <span class="tok-com">// = 27 bytes exactly</span>
+
+<span class="tok-kw">_Static_assert</span>(<span class="tok-kw">sizeof</span>(<span class="tok-type">ble_imu_packet_t</span>) == <span class="tok-num">27</span>, <span class="tok-str">"must be exactly 27 bytes"</span>);</code></pre>
+<p><span class="lead">Raw int16 register</span> counts on the wire (not converted floats) — matches the packet-size budget in <em>Worksheet - Controller/IMU Packet Design</em> field-for-field, with <code>seq</code> as the one addition for this test's own drop counting.</p>
+<h2>Connection parameters</h2>
+<ul><li><span class="key">Connection interval:</span> <strong><span class="num">20ms</span></strong> (negotiated/observed on every connection in testing)</li>
+<li><span class="key">ATT MTU:</span> <strong><span class="num">128</span></strong> (via <code>CONFIG_BT_NIMBLE_ATT_PREFERRED_MTU=128</code>) — far more than the <span class="num">27B</span> payload needs; MTU was never actually the bottleneck</li>
+<li><code>CONFIG_BT_NIMBLE_MAX_CONNECTIONS=4</code> on the central; <code>=1</code> on each peripheral</li>
+</ul>
+<h2>Update rate: genuine 50Hz, unbatched</h2>
+<p><span class="lead">Each board's main</span> loop runs at <span class="num">100Hz</span> (<code>vTaskDelayUntil</code>); a single, real <code>ble_imu_packet_t</code> is sent via one <code>ble_gatts_notify_custom()</code> call on every <span class="num">2nd</span> tick → a true <span class="num">50Hz</span> notify rate, one sample per packet, no batching.</p>
+<p><strong><span class="lead">Why</span> <span class="num">50Hz</span> and not <span class="num">100Hz</span>:</strong> empirical testing found a per-<em>connection</em> notify() ceiling of ~<span class="num">73</span>–<span class="num">76</span> calls/sec on this ESP32-S3/NimBLE stack, independent of payload size, connection interval, compiler optimization, or splitting across characteristics. <span class="lead">This lines up</span> with widely-reported ~<span class="num">15ms</span>/<span class="num">66.6Hz</span> BLE notification floors on iOS centrals. <span class="num">50Hz</span> was chosen as a genuine (not batched) rate with real margin under that ceiling, rather than pushing <span class="num">100Hz</span> and quietly merging samples into bigger packets.</p>
+<h2>Central-side multi-connection design</h2>
+<p><span class="lead">Central tracks up</span> to <code>MAX_PERIPHERALS=4</code> peripheral slots in an array (<code>peripheral_slot_t</code>), keyed by <code>conn_handle</code> in every GAP/GATT callback. <span class="lead">It scans continuously</span> while under the connection cap, and on each new connection: allocates a slot, exchanges MTU, discovers the service/characteristic, subscribes (CCCD write), and resumes scanning if slots remain. <span class="lead">On disconnect</span>, the slot is freed and scanning resumes automatically. <span class="lead">Per-slot drop detection</span> compares each packet's <code>seq</code> against the last seen value.</p>
+<h2>Throughput &amp; reliability (measured, 2026-08-12)</h2>
+<p><span class="num">4</span> physical boards connected simultaneously: Board A (real IMU, ESP32-S3), two dummy-peripheral ESP32-S3 boards, and one dummy-peripheral <strong>classic ESP32</strong> (different chip family, same NimBLE protocol — confirms the design is chip-agnostic across the ESP32/S3 family). <span class="lead">All four showed</span> <code>itvl=20.0ms mtu=128</code>.</p>
+<p><span class="lead">Clean</span> <span class="num">33.6s</span> measurement window, taken directly from the central's own per-slot counters:</p>
+<div class="table-wrap">
+<table><thead><tr><th>Slot</th><th>Device</th><th>Packets (window)</th><th>Avg rate</th><th>Dropped</th></tr>
+</thead>
+<tbody><tr><td><span class="num">0</span></td><td>classic ESP32 dummy</td><td><span class="num">1680</span></td><td><span class="num">50.00/s</span></td><td><span class="num">0</span> (<span class="num">0.00%</span>)</td></tr>
+<tr><td><span class="num">1</span></td><td>Board A — real IMU</td><td><span class="num">1680</span></td><td><span class="num">50.00/s</span></td><td><span class="num">0</span> (<span class="num">0.00%</span>)</td></tr>
+<tr><td><span class="num">2</span></td><td>S3 dummy</td><td><span class="num">1680</span></td><td><span class="num">50.00/s</span></td><td><span class="num">0</span> (<span class="num">0.00%</span>)</td></tr>
+<tr><td><span class="num">3</span></td><td>S3 dummy</td><td><span class="num">1680</span></td><td><span class="num">50.00/s</span></td><td><span class="num">0</span> (<span class="num">0.00%</span>)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong><span class="lead">Combined throughput</span>: <span class="num">200</span> packets/sec across <span class="num">4</span> simultaneous connections</strong> (<span class="num">4</span> × <span class="num">50Hz</span>, exactly on target), <strong>zero dropped packets</strong> in the window. <span class="lead">Cumulative session totals</span> at time of capture: <span class="num">48,322</span> packets received across all <span class="num">4</span> slots, <span class="num">0</span> dropped all-time. <span class="lead">Cross-checked on the</span> sender side too — Board A's own heartbeat reported <code>notify_ok=14368 notify_fail=0</code>, confirming the zero-drop result isn't just the receiver failing to notice drops.</p>
+<p><strong><span class="lead">Conclusion</span>:</strong> the design comfortably supports the full <span class="num">4</span>-controller star topology at the target <span class="num">50Hz</span> per device with no observed packet loss, and does so identically whether the peripheral is an ESP32-S3 or a classic ESP32.</p>
+<h2>Receiver CPU &amp; memory headroom (measured, 4/4 connected)</h2>
+<p><span class="lead">Added FreeRTOS runtime-stats</span> reporting (<code>CONFIG_FREERTOS_USE_TRACE_FACILITY</code> + <code>CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS</code>) to the receiver and captured <code>vTaskGetRunTimeStats()</code> plus heap readings every <span class="num">5s</span> while all <span class="num">4</span> peripheral slots were connected and streaming at ~<span class="num">50Hz</span> each. <span class="lead">Figures below are</span> stable, converged samples taken ~<span class="num">10</span>–<span class="num">40s</span> after boot.</p>
+<div class="table-wrap">
+<table><thead><tr><th>Task</th><th>Core / role</th><th>%CPU</th></tr>
+</thead>
+<tbody><tr><td>IDLE1</td><td>core <span class="num">1</span> idle</td><td>~<span class="num">99%</span></td></tr>
+<tr><td>IDLE0</td><td>core <span class="num">0</span> idle</td><td>~<span class="num">87</span>–<span class="num">91%</span></td></tr>
+<tr><td>main</td><td>heartbeat / logging / status loop</td><td>~<span class="num">4</span>–<span class="num">5%</span></td></tr>
+<tr><td>nimble_host</td><td>NimBLE host stack</td><td>~<span class="num">1</span>–<span class="num">4%</span></td></tr>
+<tr><td>btController</td><td>BLE controller</td><td>~<span class="num">2%</span></td></tr>
+<tr><td>esp_timer / ipc0 / ipc1</td><td>system</td><td>&lt;<span class="num">1%</span> each</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong><span class="lead">Core</span> <span class="num">1</span> is essentially untouched (~<span class="num">99%</span> idle)</strong> — nothing was pinned there in this test. <strong><span class="lead">Core</span> <span class="num">0</span></strong>, which runs the main app task plus the whole NimBLE stack (host + controller) for all <span class="num">4</span> simultaneous connections, is still <strong>~<span class="num">87</span>–<span class="num">91%</span> idle</strong> — total BLE + status-logging load is only ~<span class="num">9</span>–<span class="num">13%</span> of one core, even scanning continuously and juggling <span class="num">4</span> connections at once.</p>
+<p><span class="key">Heap:</span> <strong><span class="num">278,648</span> bytes free</strong>, holding rock steady (<code>min_ever_free</code> equal to current free) across the whole capture window — no leak, and a large RAM margin left over.</p>
+<p><strong><span class="lead">Conclusion</span>:</strong> this board has substantial CPU (especially core <span class="num">1</span>, entirely free) and RAM headroom for whatever else the final console needs to do — UI, haptics, USB/host-side reporting, etc. — well beyond just running the BLE receive side.</p>
+<p><em><span class="lead">Open item from</span> this same capture:</em> one peripheral connected but never completed CCCD subscription (stuck at "discovering..." for the full <span class="num">40s</span> window) after the receiver's reboot-triggered mass-reconnect of all <span class="num">4</span> boards at once — the other <span class="num">3</span> subscribed and started streaming within ~<span class="num">1s</span>. <span class="lead">Didn't affect the</span> CPU/heap numbers (that peripheral was just idle from the receiver's side), but worth another look if it recurs outside of a simultaneous-reconnect scenario.</p>
+<h2>Firmware layout</h2>
+<ul><li><code>ESP_IMU_Test/</code> — Board A, real IMU peripheral (SPI + BLE)</li>
+<li><code>ble_console_test/</code> — Board B, multi-connection central/console</li>
+<li><code>ble_dummy_peripheral/</code> — stand-in peripheral (no sensor hardware), builds for both <code>esp32s3</code> (default build dir) and classic <code>esp32</code> (<code>build.esp32</code> dir) targets from the same source</li>
+</ul>
+<p><code>ble_imu_packet.h</code> is duplicated byte-identical across all three projects (no shared-lib setup for this prototype phase).</p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/testing/ble-multi-device-design-test-results.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

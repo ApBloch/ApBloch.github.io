@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCB Wiring Reference | Aaron Bloch</title>
+  <meta name="description" content="Current, PCB-design-stage pin assignment reference for the ESP32-S3-WROOM-1 (U1). Matches the KiCad schematic as of 2026-09-19, after pins were reassign..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PCB Wiring Reference | Aaron Bloch" />
+  <meta property="og:description" content="Current, PCB-design-stage pin assignment reference for the ESP32-S3-WROOM-1 (U1). Matches the KiCad schematic as of 2026-09-19, after pins were reassign..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/pcb-design/pcb-wiring-reference/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/pcb-design/pcb-wiring-reference.md</h2>
+      <div class="pane__body">
+
+      <h1>PCB Wiring Reference</h1>
+      <div class="content">
+<p><em><span class="lead">Current</span>, PCB-design-stage pin assignment reference for the ESP32-S3-WROOM-<span class="num">1</span> (U1). <span class="lead">Matches the KiCad</span> schematic as of <span class="num">2026</span>-<span class="num">09</span>-<span class="num">19</span>, after pins were reassigned during routing for cleaner trace layout. <span class="lead">Supersedes the breadboard-era</span> "Quick Wiring Reference."</em></p>
+
+<h2>Locked vs. Flexible Pins</h2>
+
+<ul>
+<li><strong><span class="lead">Hard-locked</span> (silicon-level, cannot move):</strong> USB D+/D- — GPIO19/<span class="num">20</span> are the only pins with native USB hardware. <span class="lead">SPI uses the</span> dedicated FSPI peripheral pins for performance, though other GPIOs could technically bit-bang it if ever forced to move.</li>
+
+<li><strong><span class="lead">Soft-assigned</span> (any free GPIO works electrically):</strong> Buttons, sense pins, IMU interrupts, Power LED, Status LED. <span class="lead">These were reshuffled</span> during layout for cleaner routing.</li>
+
+</ul>
+
+<h2>SPI: ESP32-S3 to IMU (LSM6DSLTR) — LOCKED</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>ESP32-S3 Pin</th><th>Module pin</th><th>Signal</th></tr>
+
+<tr><td>GPIO12</td><td><span class="num">20</span></td><td>SCLK</td></tr>
+
+<tr><td>GPIO11</td><td><span class="num">19</span></td><td>MOSI</td></tr>
+
+<tr><td>GPIO13</td><td><span class="num">21</span></td><td>MISO</td></tr>
+
+<tr><td>GPIO10</td><td><span class="num">18</span></td><td>CS</td></tr>
+
+</table>
+</div>
+
+<h2>IMU Interrupts — flexible</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>ESP32-S3 Pin</th><th>Module pin</th><th>Signal</th><th>Notes</th></tr>
+
+<tr><td>GPIO46</td><td><span class="num">16</span></td><td>INT1</td><td>Interrupt-driven reads.</td></tr>
+
+<tr><td>GPIO38</td><td><span class="num">31</span></td><td>INT2</td><td></td></tr>
+
+</table>
+</div>
+
+<h2>USB (native, to Hanbo MC-404L68-Z10) — HARD LOCKED</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>ESP32-S3 Pin</th><th>Module pin</th><th>Signal</th></tr>
+
+<tr><td>GPIO20</td><td><span class="num">14</span></td><td>USB_DP (D+)</td></tr>
+
+<tr><td>GPIO19</td><td><span class="num">13</span></td><td>USB_DN (D-)</td></tr>
+
+</table>
+</div>
+
+<h2>Power/Charging Sense — flexible</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>ESP32-S3 Pin</th><th>Module pin</th><th>Signal</th><th>Type</th><th>Notes</th></tr>
+
+<tr><td>GPIO35</td><td><span class="num">28</span></td><td>V_BATT_SEN (battery voltage sense)</td><td>Analog</td><td><span class="num">100k</span>/<span class="num">100k</span> divider off +BATT (pre-latch, always reads true battery voltage regardless of VBAT/VBUS jumper position). <span class="num">100nF</span> at the sense node. See Battery Voltage Sense doc.</td></tr>
+
+<tr><td>GPIO17</td><td><span class="num">10</span></td><td>VBUS_SEN</td><td>Digital in</td><td><span class="num">33k</span>/<span class="num">47k</span> divider off VBUS. Detects USB plugged in/out.</td></tr>
+
+<tr><td>GPIO18</td><td><span class="num">11</span></td><td>CH_STAT</td><td>Digital in</td><td><span class="num">10k</span>/<span class="num">20k</span> divider off MCP73831 STAT. Charging vs. complete (only meaningful when VBUS_SEN is high).</td></tr>
+
+</table>
+</div>
+
+<p><span class="lead">Combine VBUS_SEN</span> + CH_STAT in firmware for full <span class="num">3</span>-state charge status: unplugged / charging / complete.</p>
+
+<h2>Power Latch &amp; Status</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>ESP32-S3 Pin</th><th>Module pin</th><th>Signal</th><th>Notes</th></tr>
+
+<tr><td>GPIO39</td><td><span class="num">32</span></td><td>PWR_BTN</td><td>Power button. Also does double duty as latch-hold: firmware drives this high after boot to hold the power latch on (see Power Latch Circuit doc). Requires a minimum button-hold-time check in firmware before latching, to avoid a boot-race if released too early.</td></tr>
+
+<tr><td>GPIO40</td><td><span class="num">33</span></td><td>PWR_LED</td><td><span class="num">220Ω</span> resistor, GPIO drives high to light. Firmware-controlled "booted and running" indicator, distinct from the hardware-driven charge-status LED (D1/STAT), since this one only lights once firmware has finished booting and latched power on.</td></tr>
+
+<tr><td>GPIO41</td><td><span class="num">34</span></td><td>STATUS_LED</td><td>General-purpose status/debug LED, GPIO-driven. Meaning open to firmware (e.g. BLE connection state, error/fault indication, activity blink).</td></tr>
+
+</table>
+</div>
+
+<h2>Boot/Reset Jumpers — locked (breakout for existing circuit)</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>Net</th><th>Module pin</th><th>Jumper</th><th>Notes</th></tr>
+
+<tr><td>ESP_BOOT (GPIO0)</td><td><span class="num">27</span></td><td>J1</td><td><span class="num">2</span>-pin, <span class="num">0.1</span>" header, other leg to GND. Bridge to force download mode. <span class="num">10k</span> pull-up (R5). Hand-solder only, DNP for assembly, remove after bring-up.</td></tr>
+
+<tr><td>EN</td><td><span class="num">3</span></td><td>J2</td><td><span class="num">10k</span> pull-up with <span class="num">1µF</span> cap (C4) for reset delay. Bridge to force reset.</td></tr>
+
+</table>
+</div>
+
+<h2>Buttons — flexible</h2>
+
+<p><em><span class="lead">Part</span>: GCT SWT0210-<span class="num">045026GSA</span>, <span class="num">4</span>.5x4.5mm gull-wing SMD, <span class="num">260gf</span>, <span class="num">100k</span> cycles. <span class="lead">Debounce</span>: firmware-only (74HC14 Schmitt circuit dropped for space/cost reasons) — direct GPIO-to-switch connection using ESP32-S3's internal <span class="num">45kΩ</span> pull-up, plus a light <span class="num">22nF</span> cap per button for fast-noise filtering. <span class="lead">Firmware handles bounce</span> timing (~<span class="num">10</span>-<span class="num">20ms</span> ignore window). <span class="num">10</span> buttons total (A, B, D-pad x4, +, -, Home, Power).</em></p>
+
+<div class="table-wrap">
+<table>
+<tr><th>Button</th><th>Net</th><th>GPIO</th><th>Module pin</th></tr>
+
+<tr><td>A</td><td>A_BTN</td><td>GPIO45</td><td><span class="num">26</span></td></tr>
+
+<tr><td>B</td><td>B_BTN</td><td>GPIO48</td><td><span class="num">25</span></td></tr>
+
+<tr><td>D-pad Up</td><td>D_UP_BTN</td><td>GPIO6</td><td><span class="num">6</span></td></tr>
+
+<tr><td>D-pad Down</td><td>D_DWN_BTN</td><td>GPIO9</td><td><span class="num">17</span></td></tr>
+
+<tr><td>D-pad Left</td><td>D_LEFT_BTN</td><td>GPIO3</td><td><span class="num">15</span></td></tr>
+
+<tr><td>D-pad Right</td><td>D_RIGHT_BTN</td><td>GPIO14</td><td><span class="num">22</span></td></tr>
+
+<tr><td>+</td><td>+_BTN</td><td>GPIO47</td><td><span class="num">24</span></td></tr>
+
+<tr><td>-</td><td>-_BTN</td><td>GPIO21</td><td><span class="num">23</span></td></tr>
+
+<tr><td>Home</td><td>HOME_BTN</td><td>GPIO5</td><td><span class="num">5</span></td></tr>
+
+<tr><td>Power</td><td>PWR_BTN</td><td>GPIO39</td><td><span class="num">32</span> (see Power Latch &amp; Status)</td></tr>
+
+</table>
+</div>
+
+<h2>Unconnected Pins (no-connect flags in schematic)</h2>
+
+<ul>
+<li><strong><span class="lead">GPIO1</span>, <span class="num">2</span>, <span class="num">4</span>, <span class="num">7</span>, <span class="num">8</span>, <span class="num">15</span>, <span class="num">16</span>, <span class="num">42</span></strong> — general-purpose pins with no assignment on this revision.</li>
+
+<li><strong><span class="lead">GPIO43</span>, <span class="num">44</span></strong> (TXD0/RXD0) — default UART0 pins, left unconnected. <span class="lead">Native USB</span> (GPIO19/<span class="num">20</span>) is the serial/programming path, plus the J1 download-mode jumper.</li>
+
+<li><strong><span class="lead">GPIO36</span>, <span class="num">37</span></strong> — internal PSRAM/flash (N16R8), left unconnected.</li>
+
+</ul>
+
+<p><em><span class="lead">Last updated</span> <span class="num">2026</span>-<span class="num">09</span>-<span class="num">19</span> to match the KiCad schematic.</em></p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/pcb-design/pcb-wiring-reference.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

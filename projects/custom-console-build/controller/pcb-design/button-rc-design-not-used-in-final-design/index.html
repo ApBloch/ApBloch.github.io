@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Button RC Design (Not Used in Final Design) | Aaron Bloch</title>
+  <meta name="description" content="Decided to not use the Schmitt trigegger debouncing circuit. It would take up too much space physically on the board. I need to keep components down to..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Button RC Design (Not Used in Final Design) | Aaron Bloch" />
+  <meta property="og:description" content="Decided to not use the Schmitt trigegger debouncing circuit. It would take up too much space physically on the board. I need to keep components down to..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/pcb-design/button-rc-design-not-used-in-final-design/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details open>
+                            <summary class="tree__item tree__dir"><a href="./" aria-current="page">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/pcb-design/button-rc-design-not-used-in-final-design.md</h2>
+      <div class="pane__body">
+
+      <h1>Button RC Design (Not Used in Final Design)</h1>
+      <div class="content">
+<h3>Revision </h3>
+<p><span class="lead">Decided to not</span> use the Schmitt trigegger debouncing circuit. <span class="lead">It would take</span> up too much space physically on the board. <span class="lead">I need to</span> keep components down to actually place all the components in the space needed.</p>
+<h3>Button De-bounce Circuit — Design Notes</h3>
+<h4>Key constraint: ESP32-S3 has no Schmitt trigger on its GPIOs</h4>
+<p><span class="lead">The ESP32 S3</span> chip family doesn't get hysteresis-enabled inputs. <span class="lead">Without hysteresis</span>, a slow, noisy RC-filtered edge can cause the input to chatter as it crosses the switching threshold, since there's nothing to "lock in" a clean high/low decision.</p>
+<h3>ESP32 S3 Datasheet Constants</h3>
+<div class="table-wrap">
+<table><tbody><tr><td>Parameter</td><td>Description</td><td>Value</td></tr>
+<tr><td>VDD</td><td>Supply Voltage</td><td><span class="num">3.3</span> V</td></tr>
+<tr><td>VIH</td><td>High Level Input Voltage <br>(VDD * <span class="num">0.75</span>)</td><td><span class="num">2.4754</span> V</td></tr>
+<tr><td>VIL</td><td>Low Level Input Voltage<br>(VDD * <span class="num">0.25</span>)</td><td><span class="num">0.825</span> V</td></tr>
+<tr><td>R PU</td><td>Internal Weak Pull Up Resistor</td><td><span class="num">45</span> kOhms</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Schmitt Trigger (74HC14)</h3>
+<div class="table-wrap">
+<table><tbody><tr><td>Parameter</td><td>Description</td><td>Value</td></tr>
+<tr><td>V Hth</td><td>High Threshold @ <span class="num">3.3V</span></td><td><span class="num">1.815</span></td></tr>
+<tr><td>V Lth</td><td>Low Threshold</td><td><span class="num">0.4</span></td></tr>
+</tbody>
+</table>
+</div>
+<h3>RC Time Constant</h3>
+<p><span class="lead">Core Formula</span></p>
+<p>\(t = -RC \ln\left(<span class="num">1</span> - \frac{V_{th}}{V_{DD}}\right)\)</p>
+<p><span class="lead">If we go</span> with a <span class="num">10k</span> Resistor as R1 and R2 we would expect <span class="num">330uA</span> of current through our pull up resistor to the trigger. <span class="lead">I want to</span> shoot for a time constant of <span class="num">15ms</span>. </p>
+<p><span class="lead">Choosing a value</span> of <span class="num">1.5uF</span> we would get a time constant of <span class="num">12</span><strong>ms.</strong></p>
+<h3>Schematic</h3>
+<p><span class="lead">Asymmetric fast-charge/slow-discharge circuit</span>. <span class="lead">Diode</span> + R1 charge C1 quickly on release (R1 doesn't factor into debounce timing at all). <span class="lead">Switch discharges C1</span> through R2 alone on press — R2 + C1 are what actually set the ~<span class="num">12ms</span> debounce time constant.</p>
+<figure>
+<img src="../../../../../assets/img/gen-button-rc-design-not-used-in-final-design-1.png" alt="" loading="lazy"></figure>
+<h3>Final Values</h3>
+<ul><li><strong><span class="lead">R1</span> = <span class="num">10k</span> (external)</strong> — chosen over the internal <span class="num">45kΩ</span> pull-up. <span class="lead">Internal would save</span> power (~<span class="num">73µA</span> vs <span class="num">330µA</span> per button) but R1 sets the release-side response time via the diode charge path, and <span class="num">45kΩ</span> would roughly quadruple that lag — not worth it for a responsive game controller.</li>
+<li><strong><span class="lead">R2</span> = <span class="num">10k</span></strong></li>
+<li><strong><span class="lead">C1</span> = <span class="num">1.5µF</span></strong> — gives a <span class="num">12ms</span> time constant at the typical VHth (<span class="num">1.815V</span>)</li>
+<li><strong><span class="lead">No firmware debounce</span> backstop</strong> — hardware-only, by choice.</li>
+</ul>
+<h3>Known risk — accepted</h3>
+<p>74HC14 thresholds vary meaningfully chip-to-chip (datasheet only guarantees VT+/VT− within <span class="num">20</span>–<span class="num">70%</span> of VCC, not a tight typical value). <span class="lead">Real range across</span> that guaranteed spec:</p>
+<ul><li><span class="lead">Worst case</span> (low VT+, ~<span class="num">0.66V</span>): ~<span class="num">3.35ms</span></li>
+<li><span class="lead">Typical</span> (calculated, <span class="num">1.815V</span>): ~<span class="num">12ms</span></li>
+<li><span class="lead">Best case</span> (high VT+, ~<span class="num">2.31V</span>): ~<span class="num">18ms</span></li>
+</ul>
+<p><strong><span class="lead">Decision</span>: accept the risk rather than over-design for the worst case.</strong> <span class="lead">Have real hardware</span> + a scope on hand — plan is to measure actual chips once in hand rather than guess. <span class="lead">If real parts</span> land on the low end and cause missed debounces, firmware backstop remains a cheap, available fallback (not built in now, but not hard to add later if needed).</p>
+<h2>Pages</h2>
+<ul class="child-links">
+<li><a href="gpio-schmitt-trigger-circuit/">GPIO Schmitt Trigger Circuit</a></li>
+</ul>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/pcb-design/button-rc-design-not-used-in-final-design.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Latch Circuit (Hardware Power Switch) | Aaron Bloch</title>
+  <meta name="description" content="Power latch circuit for a true hardware power-off state, powered directly from VBAT (not from the regulator&#x27;s own output, avoiding the chicken-and-egg p..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Power Latch Circuit (Hardware Power Switch) | Aaron Bloch" />
+  <meta property="og:description" content="Power latch circuit for a true hardware power-off state, powered directly from VBAT (not from the regulator&#x27;s own output, avoiding the chicken-and-egg p..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/pcb-design/power-latch-circuit-hardware-power-switch/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/pcb-design/power-latch-circuit-hardware-power-switch.md</h2>
+      <div class="pane__body">
+
+      <h1>Power Latch Circuit (Hardware Power Switch)</h1>
+      <div class="content">
+<p><span class="lead">Power latch circuit</span> for a true hardware power-off state, powered directly from VBAT (not from the regulator's own output, avoiding the chicken-and-egg problem where the "off" control depends on power that no longer exists once off).</p>
+
+<p><span class="key">Reference:</span> <a href="https://randomnerdtutorials.com/latching-power-switch-circuit-auto-power-off-circuit-esp32-esp8266-arduino/">Latching Power Switch Circuit (Auto Power Off Circuit) for ESP32, ESP8266, Arduino — RandomNerdTutorials</a></p>
+
+<h3>Core Topology</h3>
+
+<ul>
+<li><strong><span class="lead">P-channel MOSFET</span></strong> as high-side switch: Source → VBAT, Drain → TPS63031's EN pin</li>
+
+<li><strong><span class="lead">Pull-up resistor</span></strong> from gate to VBAT — default state is OFF (gate high = same as source)</li>
+
+<li><strong><span class="lead">Power button</span></strong>: one leg to GND, other to the gate node — pressing pulls gate down, turns PMOS ON, powers everything up</li>
+
+<li><strong><span class="lead">ESP32 GPIO</span></strong> (once booted) taps the same gate node — firmware pulls it low to latch/hold power on after the button's released</li>
+
+<li><strong><span class="lead">Shutdown</span></strong>: firmware releases/drives that GPIO high, pull-up brings gate back up, PMOS turns off, whole board (including the ESP32 itself) loses power cleanly</li>
+
+<li><strong><span class="lead">Optional safety feature</span></strong>: RC-timed "force off" on a long press, so a crashed/hung firmware can't prevent the device from being physically powered down</li>
+
+</ul>
+
+<h3>Things to Think About / Still Open</h3>
+
+<ul>
+<li><strong><span class="lead">This does NOT</span> cut off literally everything.</strong> <span class="lead">Residual draw sources</span> even in the "off" state:
+<ul>
+<li><span class="lead">TPS63031's own shutdown-mode</span> leakage (<span class="num">0.1</span>–<span class="num">0.9µA</span> per datasheet) — only relevant if this circuit gates EN rather than physically cutting VIN/VINA.</li>
+
+<li><strong><span class="lead">Battery Voltage Sense</span> divider (<span class="num">100k</span>/<span class="num">100k</span>) is wired directly across VBAT, independent of this switch</strong> — will keep drawing ~<span class="num">21µA</span> continuously even when "off," unless it's specifically re-routed to be powered downstream of the same PMOS switch.</li>
+
+<li><span class="lead">The latch circuit's</span> own pull-up resistor leakage — kept negligible with a large enough resistor value (<span class="num">100kΩ</span>+).</li>
+
+</ul>
+
+</li>
+
+<li><strong><span class="lead">Decision needed</span>:</strong> is ~<span class="num">20</span>-<span class="num">25µA</span> total residual draw in the "off" state acceptable (roughly <span class="num">15</span>-<span class="num">18mAh</span> lost per month of storage — a small fraction of the <span class="num">3450mAh</span> capacity), or worth eliminating by routing the voltage divider through the same switch? <span class="lead">If eliminated</span>, only the regulator's own sub-<span class="num">1µA</span> shutdown leakage remains.</li>
+
+<li><strong><span class="lead">PMOS part selection</span></strong> — needs to handle the ESP32's active current (~<span class="num">73mA</span>) comfortably. <span class="lead">A small</span>, cheap, common part like an AO3401 is likely comfortable overkill margin-wise, but should be confirmed once the exact circuit is finalized.</li>
+
+<li><strong><span class="lead">GPIO-to-gate-node protection</span></strong> — the reference circuit and its community comments discuss needing some protection (diode or resistor) between the ESP32 GPIO and the shared gate node, so the GPIO isn't directly shorted to GND whenever the button is pressed simultaneously. <span class="lead">Worth reading the</span> article's comment section for real-world gotchas others have hit.</li>
+
+</ul>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/pcb-design/power-latch-circuit-hardware-power-switch.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

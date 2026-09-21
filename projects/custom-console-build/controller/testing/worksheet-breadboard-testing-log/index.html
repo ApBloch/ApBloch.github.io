@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Worksheet - Breadboard Testing Log | Aaron Bloch</title>
+  <meta name="description" content="Working lab notebook for the breadboard testing pass. Fill in as you go — doesn&#x27;t need to be neat, just captured." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Worksheet - Breadboard Testing Log | Aaron Bloch" />
+  <meta property="og:description" content="Working lab notebook for the breadboard testing pass. Fill in as you go — doesn&#x27;t need to be neat, just captured." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/testing/worksheet-breadboard-testing-log/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../prototype/">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../prototype/esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/testing/worksheet-breadboard-testing-log.md</h2>
+      <div class="pane__body">
+
+      <h1>Worksheet - Breadboard Testing Log</h1>
+      <div class="content">
+<p><em><span class="lead">Working lab notebook</span> for the breadboard testing pass. <span class="lead">Fill in as</span> you go — doesn't need to be neat, just captured.</em></p>
+<h2>Setup</h2>
+<p><span class="key">Board(s) used:</span>  ESP32-S3 dev board (two for ble testing)</p>
+<p><span class="key">Power source for this session:</span>  Riden RD6012P</p>
+<p><span class="key">Notes on wiring / setup:</span>  Used a pretty good breadboard…</p>
+<hr><h2>1. ESP32-S3 to LSM6DSV320X Bring-Up</h2>
+<p><span class="key">Interface used (SPI/I2C):</span>  SPI</p>
+<p><span class="key">Pins used:</span>  See this <a href="../../prototype/quick-wiring-reference/">page</a></p>
+<p><span class="key">Result:</span>  Works!</p>
+<p><span class="key">Issues hit / how resolved:</span>  SDA line needed a resistor inline with the signal. <span class="lead">See</span> <a href="../../prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">writeup</a>.</p>
+<hr><h2>2. Throw-Motion Data Capture</h2>
+<p><em><span class="lead">Goal</span>: confirm whether ±<span class="num">16g</span> (LSM6DSLTR) is enough range, or if the ±<span class="num">32g</span> fallback (LSM6DSO32XTR) is needed. <span class="lead">Using the LSM6DSV320X</span> (±<span class="num">320g</span>) for this since it can't clip.</em></p>
+<div class="table-wrap">
+<table><thead><tr><th>Throw type</th><th>Peak accel (g)</th><th>Notes</th></tr>
+</thead>
+<tbody><tr><td>Gentle putt</td><td><span class="num">1.85</span></td><td> </td></tr>
+<tr><td>Medium throw</td><td><span class="num">6</span></td><td> </td></tr>
+<tr><td>Hard drive</td><td><span class="num">15</span></td><td> </td></tr>
+<tr><td>Hardest you can manage</td><td><span class="num">28</span></td><td>I had to hold it weird and really jerk it to a stop</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong><span class="lead">Conclusion</span> — does ±<span class="num">16g</span> hold up?</strong>  </p>
+<p><span class="lead">I think</span> <span class="num">16g</span> is a perfect setting. <span class="lead">It will give</span> us a perfect coverage of the range we really want. <span class="lead">If we do</span> <span class="num">32</span> then we are reducing our resolutions also. <span class="lead">I think</span> <span class="num">16</span> will be really good at capturing the full range of motion. <span class="lead">Getting over</span> <span class="num">16g</span> was hard and it really only peaked when i suddenly stopped the controller which isnt what we want to measure anyway.</p>
+<hr><h2>3. Buttons on GPIO</h2>
+<p><span class="key">Buttons wired:</span>  <span class="num">1</span></p>
+<p><span class="lead">Clean reads</span>? <span class="lead">Any bounce issues</span>?  <span class="lead">No issues really</span>…</p>
+<p><span class="key">Debounce approach used (if needed):</span>  Ill want to do some rc circuit if anything for this…</p>
+<hr><h2>4. BLE Connection Test</h2>
+<p><span class="lead">Advertising working</span>?  </p>
+<p><span class="lead">Successful connection from</span> central?  </p>
+<p><span class="lead">If multiple boards</span> available — simultaneous connections tested:  </p>
+<p><span class="lead">Any dropped connections</span> / cross-talk observed?  </p>
+<hr><h2>5. Current Draw Measurements</h2>
+<p><em><span class="lead">Multimeter</span> (series, current mode) for steady-state. <span class="lead">Scope</span> + shunt resistor for BLE TX burst peaks — multimeter is too slow to catch these.</em></p>
+<p><span class="key">Shunt resistor value used (if applicable):</span>  </p>
+<div class="table-wrap">
+<table><thead><tr><th>State</th><th>Tool used</th><th>Measured current</th><th>Notes</th></tr>
+</thead>
+<tbody><tr><td>Idle (no BLE activity)</td><td>Multimeter</td><td><span class="num">65mA</span></td><td> </td></tr>
+<tr><td>Active / BLE connected (steady, not bursting)</td><td>Multimeter</td><td><span class="num">73mA</span></td><td> </td></tr>
+</tbody>
+</table>
+</div>
+<p><span class="lead">Supply voltage used</span> during test (should match realistic battery voltage, not USB <span class="num">5V</span>):  <span class="num">5V</span> from power supply</p>
+<hr><h2>Overall Session Notes / Next Steps</h2>
+<p><strong><span class="num">17</span>:<span class="num">20</span></strong> — Section <span class="num">4</span> (BLE Connection Test) results — filled in after testing (<span class="num">2</span> ESP32-S3 boards, one running the IMU rig as a BLE peripheral, one as a bare BLE central "console" stand-in):<br><br>Advertising working? <span class="lead">Yes</span> — central found the peripheral's advertised service UUID within ~<span class="num">70ms</span> of starting a scan, consistently across multiple runs.<br><br><span class="lead">Successful connection from</span> central? <span class="lead">Yes</span> — full handshake completes reliably every time: connect → MTU exchange (negotiated <span class="num">64</span> bytes) → service discovery → characteristic discovery → CCCD write (subscribe) → notifications flowing within ~<span class="num">1</span> second of connect.<br><br><span class="lead">If multiple boards</span> available — simultaneous connections tested? <span class="lead">No</span> — only tested <span class="num">1</span> peripheral to <span class="num">1</span> central (both boards available were used in those roles). <span class="lead">Multi-peripheral</span> (<span class="num">4</span>-to-<span class="num">1</span>) simultaneous connection load not yet tested.<br><br><span class="lead">Any dropped connections</span> / cross-talk observed? <span class="lead">Zero packet drops</span> across two runs totaling ~<span class="num">6500</span>+ sequence-number-verified samples. <span class="lead">One full disconnect/reconnect</span> cycle was deliberately tested (reset the peripheral mid-session): central detected the disconnect immediately, auto-resumed scanning, found and reconnected to the peripheral, and resubscribed — full recovery in well under <span class="num">1</span> second, no manual intervention. <span class="lead">No cross-talk possible</span> to observe with only one peripheral present, but the central's service-UUID filter is the mechanism that would prevent it in a multi-device environment.<br><br><span class="lead">Achieved connection interval</span>: <span class="num">50.0ms</span> (NimBLE's negotiated default — not forced shorter). <span class="lead">This directly answers</span> the "realistic minimum connection interval" open question from the Wireless Protocol Selection / MCU Selection docs — <span class="num">50ms</span> was what NimBLE settled on unprompted; forcing a shorter interval (BLE supports down to <span class="num">7.5ms</span>) would need explicit connection parameters, not left to default negotiation.<br><br><span class="lead">Full data rate</span> / throughput findings written up separately — see the new "BLE Data Rate &amp; Throughput Findings" page in Prototype.<br> </p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/testing/worksheet-breadboard-testing-log.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

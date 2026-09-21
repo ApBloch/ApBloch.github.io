@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPI Bring-Up: MISO Signal Integrity Bug (LSM6DSV320X) | Aaron Bloch</title>
+  <meta name="description" content="Bug hit during IMU bring-up on the breadboard (2026-08-09), diagnosed and fixed with a series resistor. Documenting so we don&#x27;t re-diagnose this from sc..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SPI Bring-Up: MISO Signal Integrity Bug (LSM6DSV320X) | Aaron Bloch" />
+  <meta property="og:description" content="Bug hit during IMU bring-up on the breadboard (2026-08-09), diagnosed and fixed with a series resistor. Documenting so we don&#x27;t re-diagnose this from sc..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../esp32-s3-dev-board-pinout-reference/">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="./" aria-current="page">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x.md</h2>
+      <div class="pane__body">
+
+      <h1>SPI Bring-Up: MISO Signal Integrity Bug (LSM6DSV320X)</h1>
+      <div class="content">
+<p><em><span class="lead">Bug hit during</span> IMU bring-up on the breadboard (<span class="num">2026</span>-<span class="num">08</span>-<span class="num">09</span>), diagnosed and fixed with a series resistor. <span class="lead">Documenting so we</span> don't re-diagnose this from scratch next time.</em></p>
+
+<h2>Symptom</h2>
+
+<ul>
+<li><code>WHO_AM_I</code> read back <code>0x64</code> instead of the correct <code>0x73</code> (per the ST datasheet, this register is fixed-value and should never read anything else).</li>
+
+<li><span class="lead">Reads alone looked</span> "stable" (same wrong value every time), so it wasn't obviously a wiring fault at first glance.</li>
+
+<li><span class="lead">The moment any</span> control register was written (e.g. <code>CTRL1</code>/<code>CTRL2</code> to bring the accel/gyro out of power-down), the ESP32's SPI bus <strong>permanently hung</strong> on the very next transaction — not a crash, a genuine lock-up. <span class="lead">The task watchdog</span> fired twice (<span class="num">5s</span>, <span class="num">10s</span>) and then went completely silent forever, confirmed via backtrace: stuck inside <code>spi_device_polling_transmit</code>/<code>spi_device_polling_end</code>, which uses an infinite wait internally, so a truly stalled SPI hardware transaction never returns.</li>
+
+</ul>
+
+<h2>Root cause</h2>
+
+<p><span class="lead">Signal integrity on</span> the SPI lines over breadboard jumper wires — specifically the <strong>SDO → MISO</strong> line. <span class="lead">Not a firmware</span> bug, not a bad register value, not a wiring mistake in the usual sense (continuity was fine). <span class="lead">This is a</span> <strong>documented issue on ST's own community forum</strong> for this exact chip + adapter board on breadboard/jumper connections — other users hit the identical <code>0x64</code> vs <code>0x73</code> symptom. <span class="lead">One forum user's</span> exact finding: making the SDO→MISO jumper a double/longer wire changed the value to the correct <code>0x73</code>, and the oscilloscope waveform looked completely different — a classic reflection/ringing signature, not a logic-level fault.</p>
+
+<h2>Fix</h2>
+
+<p><strong><span class="lead">Added a</span> ~<span class="num">100Ω</span> resistor in series on the SDO → ESP32 GPIO13 (MISO) line</strong>, placed at the master (ESP32) end. <span class="lead">This damps the</span> reflections caused by the unterminated breadboard jumper acting like a small transmission line at SPI clock edge rates.</p>
+
+<p><span class="key">Result:</span> <code>WHO_AM_I</code> reads a clean, stable <code>0x73</code> across hundreds of reads, and the CTRL register writes that used to hang now land correctly (verified via register readback) with the sensor streaming normal data and zero watchdog resets over an extended test run.</p>
+
+<p><span class="lead">If you ever</span> see the same symptom again on a different signal/board: try the same <span class="num">100Ω</span> series resistor trick on that line first. <span class="lead">General ST guidance</span> for SPI signal integrity on jumper/breadboard runs is <span class="num">51</span>–<span class="num">100Ω</span> in series on all lines at the master, so if one resistor doesn't fully clear it, add resistors to SCLK/MOSI/CS too before assuming something else is wrong.</p>
+
+<h2>Sources</h2>
+
+<ul>
+<li><a href="https://community.st.com/t5/mems-sensors/lsm6dsv320x-who-am-i/td-p/821125">ST Community: "lsm6dsv320x WHO_AM_i"</a> — the thread describing the exact same <span class="num">0x64</span>-instead-of-<span class="num">0x73</span> symptom on breadboard jumpers</li>
+
+<li><a href="https://community.st.com/t5/mems-sensors/lsm6dsv320x-who-am-i/td-p/821125/page/2">Same thread, page 2</a> — more user reports, including the "longer wire fixed it" data point</li>
+
+<li><a href="https://www.st.com/resource/en/datasheet/lsm6dsv320x.pdf">LSM6DSV320X datasheet (DS14623 Rev 1)</a> — used to verify the actual register map (WHO_AM_I, CTRL1/CTRL2, the high-g accelerometer channel, STATUS_REG) instead of guessing from a related chip family</li>
+
+</ul>
+
+<h2>Firmware, in plain terms</h2>
+
+<p><span class="key">Full code:</span> <code>ESP_IMU_Test/main/main.c</code> on the dev machine (ESP-IDF project, not Arduino). <span class="lead">What it does</span>, roughly in order:</p>
+
+<ol>
+<li><strong><span class="lead">Sets up two</span> separate serial buses</strong>: SPI to talk to the IMU (GPIO10-<span class="num">13</span>), and a second UART — UART1 on GPIO17 — just for streaming data out, kept separate from the USB/console UART so logs and data don't collide.</li>
+
+<li><strong><span class="lead">Reads</span> <code>WHO_AM_I</code></strong> as a first handshake check — if the chip doesn't answer with the right ID, it stops and logs an error instead of pushing forward blind.</li>
+
+<li><strong><span class="lead">Configures three sensor</span> channels</strong> by writing a few control registers: the normal (low-g) accelerometer and gyroscope at <span class="num">120</span> Hz, plus the IMU's high-g accelerometer channel at <span class="num">480</span> Hz / ±<span class="num">320g</span> — that last one is the channel that won't clip on a hard throw, which is the whole reason this chip is in the prototype.</li>
+
+<li><strong><span class="lead">Reads back</span></strong> every register it just wrote, to catch a corrupted write immediately rather than trusting it silently (this is what would have caught the resistor bug faster, in hindsight).</li>
+
+<li><strong><span class="lead">Loops forever</span></strong>: checks a status register to see if new data is ready, reads it when it is, and sends it out as a simple line of text (comma-separated numbers) over the UART1 wire. <span class="lead">Also prints one</span> line a second to the normal USB console, so readings can be sanity-checked without any extra hardware.</li>
+
+</ol>
+
+<p><span class="lead">Everything streamed is</span> raw sensor counts, not converted to g's or degrees/sec — that conversion is a simple multiply against a datasheet constant, left for whenever the data actually needs to be in physical units.</p>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/prototype/spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>

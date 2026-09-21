@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!-- Generated from Trilium. Edit the note, not this file. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32-S3 Dev Board Pinout Reference | Aaron Bloch</title>
+  <meta name="description" content="Reference for the Hosyond ESP32-S3-WROOM-1 dev board (N16R8: 16MB flash, 8MB PSRAM). Pinout sourced directly from Espressif&#x27;s official ESP32-S3-DevKitC-..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ESP32-S3 Dev Board Pinout Reference | Aaron Bloch" />
+  <meta property="og:description" content="Reference for the Hosyond ESP32-S3-WROOM-1 dev board (N16R8: 16MB flash, 8MB PSRAM). Pinout sourced directly from Espressif&#x27;s official ESP32-S3-DevKitC-..." />
+  <meta property="og:url" content="https://apbloch.github.io/projects/custom-console-build/controller/prototype/esp32-s3-dev-board-pinout-reference/" />
+  <link rel="stylesheet" href="../../../../../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <ul>
+          <li><a class="tree__item tree__file" href="../../../../../">index.html</a></li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir"><a href="../../../../">projects</a></summary>
+            <ul>
+              <li>
+                <details open>
+                <summary class="tree__item tree__dir"><a href="../../../">custom-console-build</a></summary>
+                <ul>
+                  <li><a class="tree__item" href="../../../custom-console-build-overview/">custom-console-build-overview</a></li>
+                  <li>
+                    <details open>
+                    <summary class="tree__item tree__dir"><a href="../../">controller</a></summary>
+                    <ul>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../hardware-documentation/">hardware-documentation</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../hardware-documentation/battery-selection-panasonic-ncr18650ga-protected/">battery-selection-panasonic-ncr18650ga-protected</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/imu-selection/">imu-selection</a></li>
+                          <li><a class="tree__item" href="../../hardware-documentation/mcu-selection/">mcu-selection</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details open>
+                        <summary class="tree__item tree__dir"><a href="../">prototype</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="./" aria-current="page">esp32-s3-dev-board-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../steval-mki251a-imu-adapter-pinout-reference/">steval-mki251a-imu-adapter-pinout-reference</a></li>
+                          <li><a class="tree__item" href="../quick-wiring-reference/">quick-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x/">spi-bring-up-miso-signal-integrity-bug-lsm6dsv320x</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../testing/">testing</a></summary>
+                        <ul>
+                          <li><a class="tree__item" href="../../testing/ble-multi-device-design-test-results/">ble-multi-device-design-test-results</a></li>
+                          <li><a class="tree__item" href="../../testing/worksheet-breadboard-testing-log/">worksheet-breadboard-testing-log</a></li>
+                          <li><a class="tree__item" href="../../testing/swing-plots/">swing-plots</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                        <summary class="tree__item tree__dir"><a href="../../pcb-design/">pcb-design</a></summary>
+                        <ul>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/parts-list/">parts-list</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/parts-list/battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w/">battery-holder-selection-keystone-1043-rejected-mpd-bh-18650-w</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/block-diagram/">block-diagram</a></li>
+                          <li>
+                            <details>
+                            <summary class="tree__item tree__dir"><a href="../../pcb-design/button-rc-design-not-used-in-final-design/">button-rc-design-not-used-in-final-design</a></summary>
+                            <ul>
+                              <li><a class="tree__item" href="../../pcb-design/button-rc-design-not-used-in-final-design/gpio-schmitt-trigger-circuit/">gpio-schmitt-trigger-circuit</a></li>
+                            </ul>
+                            </details>
+                          </li>
+                          <li><a class="tree__item" href="../../pcb-design/mcp73831t-2dci-ot-layout/">mcp73831t-2dci-ot-layout</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/bulk-capacitor-sizing/">bulk-capacitor-sizing</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/usb-c-connector-wiring/">usb-c-connector-wiring</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/battery-voltage-sense/">battery-voltage-sense</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/pcb-wiring-reference/">pcb-wiring-reference</a></li>
+                          <li><a class="tree__item" href="../../pcb-design/power-latch-circuit-hardware-power-switch/">power-latch-circuit-hardware-power-switch</a></li>
+                        </ul>
+                        </details>
+                      </li>
+                    </ul>
+                    </details>
+                  </li>
+                </ul>
+                </details>
+              </li>
+            </ul>
+            </details>
+          </li>
+          <li>
+            <details open>
+            <summary class="tree__item tree__dir">tools</summary>
+            <ul>
+              <li><a class="tree__item" href="../../../../../tools/prog-calc/">prog-calc</a></li>
+            </ul>
+            </details>
+          </li>
+          <li><span class="tree__item is-missing" title="Not written yet">about <span class="tree__flag" aria-label="not written yet">?</span></span></li>
+        </ul>
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">projects/custom-console-build/controller/prototype/esp32-s3-dev-board-pinout-reference.md</h2>
+      <div class="pane__body">
+
+      <h1>ESP32-S3 Dev Board Pinout Reference</h1>
+      <div class="content">
+<p><em><span class="lead">Reference for the</span> Hosyond ESP32-S3-WROOM-<span class="num">1</span> dev board (N16R8: <span class="num">16MB</span> flash, <span class="num">8MB</span> PSRAM). <span class="lead">Pinout sourced directly</span> from Espressif's official ESP32-S3-DevKitC-<span class="num">1</span> docs — this board is pinout-compatible with that reference design.</em></p>
+
+<h2>⚠ Reserved Pins — Do Not Use</h2>
+
+<p><span class="lead">Because this board</span> has Octal SPI PSRAM (the R8 in N16R8), these pins are used internally for flash/PSRAM communication and are NOT available for your circuit:</p>
+
+<ul>
+<li><strong><span class="lead">GPIO35</span>, GPIO36, GPIO37</strong> — reserved, do not wire anything to these</li>
+
+</ul>
+
+<h2>Other Special-Purpose Pins</h2>
+
+<ul>
+<li><strong><span class="lead">GPIO0</span></strong> — Boot select pin (held low at reset = download mode). <span class="lead">Usable as GPIO</span> after boot, but avoid depending on its state during power-up.</li>
+
+<li><strong><span class="lead">GPIO45</span>, GPIO46</strong> — Strapping pins (affect boot behavior based on their state at reset). <span class="lead">Usable but be</span> careful with default states.</li>
+
+<li><strong><span class="lead">GPIO48</span></strong> — Drives the onboard addressable RGB LED. <span class="lead">Still usable as</span> GPIO if you don't need the LED.</li>
+
+<li><strong><span class="lead">GPIO43</span> (TX) / GPIO44 (RX)</strong> — Default UART0, used for USB-to-UART programming/serial monitor. <span class="lead">Avoid using for</span> other purposes if you want to keep serial console access.</li>
+
+<li><strong><span class="lead">GPIO19</span>, GPIO20</strong> — USB D-/D+ (native USB OTG). <span class="lead">Avoid if you</span> want to keep the native USB port functional.</li>
+
+</ul>
+
+<h2>Good Pins for This Project</h2>
+
+<p><em><span class="lead">Suggested</span> — not exhaustive. <span class="lead">Cross off as</span> you assign them in the Block Diagram.</em></p>
+
+<ul>
+<li><strong><span class="lead">SPI</span> (for IMU):</strong> GPIO11 (MOSI/FSPID), GPIO13 (MISO/FSPIQ), GPIO12 (SCLK/FSPICLK), GPIO10 (CS/FSPICS0) — these are the hardware FSPI pins, good default choice for the IMU</li>
+
+<li><strong><span class="lead">I2C</span> (alternative for IMU):</strong> any two free GPIO can be assigned via software (ESP32-S3 I2C is not pinned to fixed hardware pins) — e.g. GPIO8/GPIO9</li>
+
+<li><strong><span class="lead">Buttons/GPIO</span>:</strong> GPIO4, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>, <span class="num">15</span>, <span class="num">16</span>, <span class="num">17</span>, <span class="num">18</span>, <span class="num">3</span>, <span class="num">9</span>, <span class="num">14</span>, <span class="num">21</span>, <span class="num">1</span>, <span class="num">2</span>, <span class="num">42</span>, <span class="num">41</span>, <span class="num">40</span>, <span class="num">39</span>, <span class="num">38</span> — plenty of free general-purpose pins for A/B/D-pad/+-/Home</li>
+
+</ul>
+
+<h2>Full Pinout — J1 Header</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>Pin #</th><th>Name</th><th>Function</th></tr>
+
+<tr><td><span class="num">1</span></td><td>3V3</td><td><span class="num">3.3V</span> power supply</td></tr>
+
+<tr><td><span class="num">2</span></td><td>3V3</td><td><span class="num">3.3V</span> power supply</td></tr>
+
+<tr><td><span class="num">3</span></td><td>RST</td><td>EN (reset)</td></tr>
+
+<tr><td><span class="num">4</span></td><td>GPIO4</td><td>RTC_GPIO4, TOUCH4, ADC1_CH3</td></tr>
+
+<tr><td><span class="num">5</span></td><td>GPIO5</td><td>RTC_GPIO5, TOUCH5, ADC1_CH4</td></tr>
+
+<tr><td><span class="num">6</span></td><td>GPIO6</td><td>RTC_GPIO6, TOUCH6, ADC1_CH5</td></tr>
+
+<tr><td><span class="num">7</span></td><td>GPIO7</td><td>RTC_GPIO7, TOUCH7, ADC1_CH6</td></tr>
+
+<tr><td><span class="num">8</span></td><td>GPIO15</td><td>U0RTS, ADC2_CH4, XTAL_32K_P</td></tr>
+
+<tr><td><span class="num">9</span></td><td>GPIO16</td><td>U0CTS, ADC2_CH5, XTAL_32K_N</td></tr>
+
+<tr><td><span class="num">10</span></td><td>GPIO17</td><td>U1TXD, ADC2_CH6</td></tr>
+
+<tr><td><span class="num">11</span></td><td>GPIO18</td><td>U1RXD, ADC2_CH7, CLK_OUT3</td></tr>
+
+<tr><td><span class="num">12</span></td><td>GPIO8</td><td>TOUCH8, ADC1_CH7, SUBSPICS1</td></tr>
+
+<tr><td><span class="num">13</span></td><td>GPIO3</td><td>TOUCH3, ADC1_CH2</td></tr>
+
+<tr><td><span class="num">14</span></td><td>GPIO46</td><td>Strapping pin</td></tr>
+
+<tr><td><span class="num">15</span></td><td>GPIO9</td><td>TOUCH9, ADC1_CH8, FSPIHD</td></tr>
+
+<tr><td><span class="num">16</span></td><td>GPIO10</td><td>TOUCH10, ADC1_CH9, FSPICS0</td></tr>
+
+<tr><td><span class="num">17</span></td><td>GPIO11</td><td>ADC2_CH0, FSPID</td></tr>
+
+<tr><td><span class="num">18</span></td><td>GPIO12</td><td>ADC2_CH1, FSPICLK</td></tr>
+
+<tr><td><span class="num">19</span></td><td>GPIO13</td><td>ADC2_CH2, FSPIQ</td></tr>
+
+<tr><td><span class="num">20</span></td><td>GPIO14</td><td>ADC2_CH3, FSPIWP</td></tr>
+
+<tr><td><span class="num">21</span></td><td><span class="num">5V</span></td><td><span class="num">5V</span> power supply</td></tr>
+
+<tr><td><span class="num">22</span></td><td>G</td><td>Ground</td></tr>
+
+</table>
+</div>
+
+<h2>Full Pinout — J3 Header</h2>
+
+<div class="table-wrap">
+<table>
+<tr><th>Pin #</th><th>Name</th><th>Function</th></tr>
+
+<tr><td><span class="num">1</span></td><td>G</td><td>Ground</td></tr>
+
+<tr><td><span class="num">2</span></td><td>TX</td><td>U0TXD, GPIO43 — USB serial TX</td></tr>
+
+<tr><td><span class="num">3</span></td><td>RX</td><td>U0RXD, GPIO44 — USB serial RX</td></tr>
+
+<tr><td><span class="num">4</span></td><td>GPIO1</td><td>TOUCH1, ADC1_CH0</td></tr>
+
+<tr><td><span class="num">5</span></td><td>GPIO2</td><td>TOUCH2, ADC1_CH1</td></tr>
+
+<tr><td><span class="num">6</span></td><td>GPIO42</td><td>MTMS (JTAG)</td></tr>
+
+<tr><td><span class="num">7</span></td><td>GPIO41</td><td>MTDI (JTAG)</td></tr>
+
+<tr><td><span class="num">8</span></td><td>GPIO40</td><td>MTDO (JTAG)</td></tr>
+
+<tr><td><span class="num">9</span></td><td>GPIO39</td><td>MTCK (JTAG)</td></tr>
+
+<tr><td><span class="num">10</span></td><td>GPIO38</td><td>FSPIWP</td></tr>
+
+<tr><td><span class="num">11</span></td><td>GPIO37</td><td>⚠ RESERVED — PSRAM/Flash</td></tr>
+
+<tr><td><span class="num">12</span></td><td>GPIO36</td><td>⚠ RESERVED — PSRAM/Flash</td></tr>
+
+<tr><td><span class="num">13</span></td><td>GPIO35</td><td>⚠ RESERVED — PSRAM/Flash</td></tr>
+
+<tr><td><span class="num">14</span></td><td>GPIO0</td><td>Boot select strapping pin</td></tr>
+
+<tr><td><span class="num">15</span></td><td>GPIO45</td><td>Strapping pin</td></tr>
+
+<tr><td><span class="num">16</span></td><td>GPIO48</td><td>Onboard RGB LED</td></tr>
+
+<tr><td><span class="num">17</span></td><td>GPIO47</td><td>General purpose</td></tr>
+
+<tr><td><span class="num">18</span></td><td>GPIO21</td><td>General purpose</td></tr>
+
+<tr><td><span class="num">19</span></td><td>GPIO20</td><td>USB D+ (native USB)</td></tr>
+
+<tr><td><span class="num">20</span></td><td>GPIO19</td><td>USB D- (native USB)</td></tr>
+
+<tr><td><span class="num">21</span></td><td>G</td><td>Ground</td></tr>
+
+<tr><td><span class="num">22</span></td><td>G</td><td>Ground</td></tr>
+
+</table>
+</div>
+
+<h2>Sources</h2>
+
+<ul>
+<li><a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.0.html">Espressif ESP32-S3-DevKitC-1 User Guide</a></li>
+
+<li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf">ESP32-S3-WROOM-1 Datasheet (PDF)</a></li>
+
+</ul>
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">projects/custom-console-build/controller/prototype/esp32-s3-dev-board-pinout-reference.md</span>
+      <span class="status__spacer"></span>
+      <a class="status__seg status__link" href="https://github.com/ApBloch">GitHub</a>
+      <span class="status__seg"><span class="todo">[TODO: LinkedIn URL]</span></span>
+      <a class="status__seg status__link" href="mailto:aaronpbloch@gmail.com">aaronpbloch@gmail.com</a>
+      <span class="status__seg">&copy; 2026 Aaron Bloch</span>
+    </footer>
+
+  </div>
+  <script src="../../../../../assets/js/terminal.js" defer></script>
+</body>
+</html>
