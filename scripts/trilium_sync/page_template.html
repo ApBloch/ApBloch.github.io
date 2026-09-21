@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}} | {{site_name}}</title>
+  <meta name="description" content="{{description}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{title}} | {{site_name}}" />
+  <meta property="og:description" content="{{description}}" />
+  <meta property="og:url" content="{{og_url}}" />
+  <link rel="stylesheet" href="{{root}}assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+
+    <nav class="pane explorer" aria-label="Explorer">
+      <h2 class="pane__title">Explorer</h2>
+      <div class="pane__body">
+      <div class="tree">
+        <p class="tree__root">ApBloch.github.io</p>
+        <!-- explorer:start -->
+        <!-- explorer:end -->
+      </div>
+      </div>
+    </nav>
+
+    <main class="pane editor" id="main">
+      <h2 class="pane__title">{{pane_title}}</h2>
+      <div class="pane__body">
+
+      <h1>{{title}}</h1>
+      <div class="content">
+{{content}}
+      </div>
+      </div>
+    </main>
+
+    <section class="pane terminal" aria-label="Terminal" hidden>
+      <h2 class="pane__title">Terminal</h2>
+      <div class="pane__body"></div>
+    </section>
+
+    <footer class="statusline">
+      <span class="status__mode">NORMAL</span>
+      <span class="status__seg status__seg--file">{{pane_title}}</span>
+      <span class="status__spacer"></span>
+{{status_links}}
+      <span class="status__seg">&copy; 2026 {{site_name}}</span>
+    </footer>
+
+  </div>
+  <script src="{{root}}assets/js/terminal.js" defer></script>
+</body>
+</html>

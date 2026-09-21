@@ -1,0 +1,40 @@
+{
+  "base_url": "https://apbloch.github.io/",
+  "site_name": "Aaron Bloch",
+  "site_dir": "projects",
+  "publish_label": "public",
+  "links": {
+    "github": "https://github.com/ApBloch",
+    "linkedin": null,
+    "email": "aaronpbloch@gmail.com"
+  },
+  "handwritten_pages": [
+    "index.html",
+    "projects/index.html"
+  ],
+  "tree": [
+    {
+      "name": "index.html",
+      "kind": "file",
+      "path": ""
+    },
+    {
+      "name": "projects",
+      "path": "projects",
+      "generated": true
+    },
+    {
+      "name": "tools",
+      "children": [
+        {
+          "name": "prog-calc",
+          "path": "tools/prog-calc"
+        }
+      ]
+    },
+    {
+      "name": "about",
+      "missing": true
+    }
+  ]
+}
